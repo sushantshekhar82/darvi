@@ -1,11 +1,21 @@
 const bcrypt = require('bcryptjs')
 const userModel = require('../models/usermodel');
 const { response } = require('../routes/userRoutes');
-
+const jwt=require('jsonwebtoken');
+const config = require('../config/config');
 const securePassword=async(password)=>{
     try {
         const passwordHash=await bcrypt.hash(password,5)
         return passwordHash;
+    } catch (error) {
+        res.status(400).send(error.message)  
+    }
+}
+
+const create_token=async(id)=>{
+    try {
+      const token= await jwt.sign({_id:id},config.jwtSecretKey)
+      return token
     } catch (error) {
         res.status(400).send(error.message)  
     }
@@ -45,12 +55,15 @@ const login=async(req,res)=>{
         if(userData){
        const passwordMatch=   await bcrypt.compare(password,userData.password)
            if(passwordMatch){
+            const tokenData=await create_token(userData._id)
+
             const userResult={
                 _id:userData._id,
                 name:userData.name,
                 email:userData.email,
                 image:userData.image,
-                mobile:userData.mobile
+                mobile:userData.mobile,
+                token:tokenData
 
             }
             const resPonse={
