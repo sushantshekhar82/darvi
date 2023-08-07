@@ -27,5 +27,6 @@ const upload=multer({storage:storage});
 const user_controller=require("../controllers/userController")
 
 userRoute.post('/register',upload.single('image'),user_controller.register_user)
+userRoute.post('/login',user_controller.login)
 
 module.exports=userRoute
