@@ -20,6 +20,10 @@ const userSchema= mongoose.Schema({
     mobile:{
         type:String,
         required:true
+    },
+    token:{
+        type:String,
+        default:''
     }
 })
 const userModel=mongoose.model("user",userSchema)

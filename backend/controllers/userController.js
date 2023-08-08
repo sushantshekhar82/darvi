@@ -3,6 +3,8 @@ const userModel = require('../models/usermodel');
 const { response } = require('../routes/userRoutes');
 const jwt=require('jsonwebtoken');
 const config = require('../config/config');
+const nodemailer=require('nodemailer')
+const randomstring=require('randomstring')
 const securePassword=async(password)=>{
     try {
         const passwordHash=await bcrypt.hash(password,5)
@@ -19,6 +21,40 @@ const create_token=async(id)=>{
     } catch (error) {
         res.status(400).send(error.message)  
     }
+}
+
+const sendResetPasswordMail=async(name,email,token)=>{
+ try {
+  const trasporter=  nodemailer.createTransport({
+        host:'smtp.gmail.com',
+        port:587,
+        secure:false,
+        requireTLS:true,
+        auth:{
+            user:config.emailUser,
+            pass:config.emailPassword
+        }
+
+    })
+    const mailOptions={
+        from:config.emailUser,
+        to:email,
+        subject:'Darvi Reset Password',
+        html:'<p>Hi'+name+`, please click on the link to reset your password <a href="http://localhost:8080/api/forget_password?token=${token}"> click here</a> `
+
+    }
+    trasporter.sendMail(mailOptions,function(error,info){
+        if(error){
+            console.log(error.message)
+        }else{
+            console.log("mail has been send",info.response);
+        }
+
+    })
+    
+ } catch (error) {
+    res.status(400).send(error.message) 
+ }
 }
 
 const register_user=async(req,res)=>{
@@ -62,13 +98,14 @@ const login=async(req,res)=>{
                 name:userData.name,
                 email:userData.email,
                 image:userData.image,
-                mobile:userData.mobile,
-                token:tokenData
+                mobile:userData.mobile
+                
 
             }
             const resPonse={
                 success:true,
-                data:userResult
+                data:userResult,
+               token:tokenData
 
             }
             res.status(200).send(resPonse)
@@ -105,9 +142,27 @@ const update_password=async(req,res)=>{
         res.status(400).send(error.message)
     }
 }
+const forget_password=async(req,res)=>{
+        try {
+            const email=req.body.email
+        const userData=await userModel.findOne({email:email})
+        if(userData){
+            const randomString=randomstring.generate()
+            userModel.findOne({email:email},{$set:{token:randomString}})
+            sendResetPasswordMail(userData.name,userData.email,randomString)
+            res.status(200).send({success:true,msg:"Check you email "})
+        }else{
+            res.status(200).send({success:false,msg:"Email Doesn't Exist"})
+        }
+            
+        } catch (error) {
+            res.status(400).send(error.message)
+        }
+}
 
 module.exports={
     register_user,
     login,
-    update_password
+    update_password,
+    forget_password
 }

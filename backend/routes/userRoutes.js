@@ -33,4 +33,5 @@ userRoute.get('/test',verifyToken,function(req,res){
     res.status(200).send({success:true,msg:"Authorized"})
 })
 userRoute.post('/update_password',verifyToken,user_controller.update_password)
+userRoute.post('/forget_password',user_controller.forget_password)
 module.exports=userRoute
