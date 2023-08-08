@@ -25,8 +25,12 @@ const storage=multer.diskStorage({
 const upload=multer({storage:storage});
 
 const user_controller=require("../controllers/userController")
+const verifyToken = require('../middlewares/auth')
 
 userRoute.post('/register',upload.single('image'),user_controller.register_user)
 userRoute.post('/login',user_controller.login)
-
+userRoute.get('/test',verifyToken,function(req,res){
+    res.status(200).send({success:true,msg:"Authorized"})
+})
+userRoute.post('/update_password',verifyToken,user_controller.update_password)
 module.exports=userRoute
