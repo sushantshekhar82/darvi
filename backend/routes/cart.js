@@ -8,12 +8,14 @@ cartRoute.use(bodyParser.json())
 cartRoute.use(bodyParser.urlencoded({extended:true}))
 
 cartRoute.get("/cartitems/:id",async(req,res)=>{
-    const userId=req.params.id
+    const {id}=req.params
     try {
-      const cart=await cartModel.findById({
-        userId})
-        
-        res.status(200).send(cart)
+      const cart=await cartModel.find({
+        userId:id})
+         // Count the number of cart items with the same userId
+        const cartCount = await cartModel.countDocuments({ userId: id });
+
+        res.status(200).send({cart,cartCount})
     } catch (error) {
       res.status(400).send({"msg":error.message})
     }
@@ -21,7 +23,7 @@ cartRoute.get("/cartitems/:id",async(req,res)=>{
 
   cartRoute.post("/cartitems/addcart",verifyToken,async(req,res)=>{
     try {
-        const { productId,userId, productname, category, price, rating, productquantity} = req.body;
+        const { productId, productname, category, price, rating, productquantity} = req.body;
         
         // Create a new cart item using the cartModel schema
         const cartItem = new cartModel({
@@ -31,7 +33,7 @@ cartRoute.get("/cartitems/:id",async(req,res)=>{
             price,
             rating,
             productquantity,
-            userId
+            userId:req.user._id
             
         });
         
@@ -47,7 +49,17 @@ cartRoute.get("/cartitems/:id",async(req,res)=>{
         res.status(500).json({ msg:error.message });
     }
   })
+  cartRoute.delete('/deleteCart/:userId', async (req, res) => {
+    const { userId } = req.params;
+    try {
+        // Find and remove all cart items for the specified userId
+        const deletedItems = await cartModel.deleteMany({ userId });
 
+        res.status(200).json({ message: `Deleted ${deletedItems.deletedCount} cart items for userId: ${userId}` });
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred while deleting cart items' });
+    }
+});
 
 
 module.exports=cartRoute;
