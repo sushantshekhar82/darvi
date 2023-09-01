@@ -1,6 +1,5 @@
 const config={
-    jwtSecretKey:"DarviIsInAccentNextTechNoloGies",
-    emailUser:"sushant.shekhar151997@gmail.com",
-    emailPassword:"sushant@gmail"
+    jwtSecretKey:"DarviIsInAccentNextTechNoloGies"
+    
 }
 module.exports=config;

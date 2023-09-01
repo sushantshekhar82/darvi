@@ -142,27 +142,27 @@ const update_password=async(req,res)=>{
         res.status(400).send(error.message)
     }
 }
-const forget_password=async(req,res)=>{
-        try {
-            const email=req.body.email
-        const userData=await userModel.findOne({email:email})
-        if(userData){
-            const randomString=randomstring.generate()
-            userModel.findOne({email:email},{$set:{token:randomString}})
-            sendResetPasswordMail(userData.name,userData.email,randomString)
-            res.status(200).send({success:true,msg:"Check you email "})
-        }else{
-            res.status(200).send({success:false,msg:"Email Doesn't Exist"})
-        }
+// const forget_password=async(req,res)=>{
+//         try {
+//             const email=req.body.email
+//         const userData=await userModel.findOne({email:email})
+//         if(userData){
+//             const randomString=randomstring.generate()
+//             userModel.findOne({email:email},{$set:{token:randomString}})
+//             sendResetPasswordMail(userData.name,userData.email,randomString)
+//             res.status(200).send({success:true,msg:"Check you email "})
+//         }else{
+//             res.status(200).send({success:false,msg:"Email Doesn't Exist"})
+//         }
             
-        } catch (error) {
-            res.status(400).send(error.message)
-        }
-}
+//         } catch (error) {
+//             res.status(400).send(error.message)
+//         }
+// }
 
 module.exports={
     register_user,
     login,
-    update_password,
-    forget_password
+    update_password
+   
 }
