@@ -7,7 +7,7 @@ import {
     Stack,
     Collapse,
     Icon,
-    Link,
+    
     Popover,
     PopoverTrigger,
     PopoverContent,
@@ -22,14 +22,31 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
   } from '@chakra-ui/icons';
-  
+  import {
+    Drawer,
+    DrawerBody,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
+  } from "@chakra-ui/react";
+import { Link } from 'react-router-dom';
+  import {AiOutlineUser,AiOutlineShoppingCart} from 'react-icons/ai'
+import { useState } from 'react';
   export default function WithSubnavigation() {
-    const { isOpen, onToggle } = useDisclosure();
-  
+    // const { isOpen, onToggle } = useDisclosure();
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [placement, setPlacement] = useState('left')
     return (
-      <Box>
+      <Box  position="fixed"
+      bg={useColorModeValue("white", "white")}
+      px={4}
+      width="100%"
+      top={0}
+      zIndex={1}>
         <Flex
-        //   bg={useColorModeValue('white', 'gray.800')}
+         
           color={useColorModeValue('black', 'black')}
           minH={'60px'}
           py={{ base: 2 }}
@@ -37,43 +54,65 @@ import {
           borderBottom={1}
         //   borderStyle={'solid'}
           borderColor={useColorModeValue('black', 'black')}
-          justifyContent={'center'}
+          justifyContent={'space-around'}
           alignItems={'center'}
           >
-          <Flex
+             <Flex
             flex={{ base: 1, md: 'auto' }}
             ml={{ base: -2 }}
             display={{ base: 'flex', md: 'none' }} >
-            <IconButton
-              onClick={onToggle}
-              icon={
-                isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-              }
-              variant={'ghost'}
-              aria-label={'Toggle Navigation'}
-              className='navbar'
-            />
+         <IconButton
+            size={"md"}
+            icon={isOpen ? <CloseIcon boxSize={'20px'} /> : <HamburgerIcon boxSize={'20px'}  />}
+            aria-label={"Open Menu"}
+            display={{ md: "none" }}
+           
+            marginRight={'10px'}
+            onClick={isOpen ? onClose : onOpen}
+
+          />
           </Flex>
-          <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'center' }} alignItems={'center'}  >
-            <Text
-              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-              fontFamily={'heading'}
-              color={useColorModeValue('black', 'black')}
-              mr={150}>
+          <Flex flex={{ base: 1 }} marginRight={{base:'30px',lg:'1px'}}  justifyContent={'space-around'} alignItems={'center'}  gap={'10px'}  >
+            <Flex>
              <Image src="./Darvi.png" alt="Darvi"/>
-            </Text>
-  
+             </Flex>
             <Flex display={{ base: 'none', md: 'flex',lg:'center' }} mr={150}  >
               <DesktopNav />
             </Flex>
+
+           
           </Flex>
   
-         
+          <Flex justifyContent={'center'} gap={'5px'} >
+              <AiOutlineUser fontSize={'25px'}/>
+              <AiOutlineShoppingCart fontSize={'25px'}/>
+            </Flex>
         </Flex>
   
-        <Collapse in={isOpen} animateOpacity>
+        {/* <Collapse in={isOpen} animateOpacity>
           <MobileNav />
-        </Collapse>
+        </Collapse> */}
+        <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
+        <DrawerOverlay />
+        <DrawerContent>
+        <DrawerHeader borderBottomWidth="1px">
+                <Image
+                  width={"50%"}
+                  margin={"auto"}
+                  src="./Darvi.png"
+                  alt="Darvi Logo"
+                />
+              </DrawerHeader>
+              <DrawerCloseButton  fontSize={'10px'} />
+          <DrawerBody>
+
+            <Text fontSize={'20px'}>Home</Text>
+            <Text fontSize={'20px'}>Products</Text>
+            <Text fontSize={'20px'}>Our Story</Text>
+            <Text fontSize={'20px'}>Contact</Text>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
       </Box>
     );
   }
@@ -89,9 +128,10 @@ import {
           <Box key={navItem.label}>
             <Popover trigger={'hover'} placement={'bottom-start'}>
               <PopoverTrigger>
-                <Link
+               <Link to={navItem.href}>
+                <Text
                   p={2}
-                  href={navItem.href ?? '#'}
+                 
                 fontWeight={'bold'}
                   color={linkColor}
                   _hover={{
@@ -103,7 +143,8 @@ import {
                   className='navbar'
                   >
                   {navItem.label}
-                </Link>
+                </Text>
+               </Link>
               </PopoverTrigger>
   
               {navItem.children && (
@@ -166,7 +207,7 @@ import {
     return (
       <Stack
         bg={useColorModeValue('white', 'white')}
-        p={4}
+        
         display={{ md: 'none' }}>
         {NAV_ITEMS.map((navItem) => (
           <MobileNavItem key={navItem.label} {...navItem} />
@@ -181,7 +222,7 @@ import {
     return (
       <Stack spacing={4} onClick={children && onToggle}>
         <Flex
-          py={2}
+          
           as={Link}
           href={href ?? '#'}
           justify={'space-between'}
@@ -190,7 +231,7 @@ import {
             textDecoration: 'none',
             color:'#FE7005'
           }}
-          
+         
           >
           <Text
             fontWeight={600}
@@ -234,19 +275,19 @@ import {
     
     {
       label: 'Home',
-      href: '#',
+      href: '/',
     },
     {
       label: 'Products',
-      href: '#',
+      href: '/products%20page',
     },
     {
       label: 'Our Story',
-      href: '#',
+      href: '/about%20us',
     },
     {
       label: 'Contact',
-      href: '#',
+      href: '/contact%20us',
     }
 
   ];

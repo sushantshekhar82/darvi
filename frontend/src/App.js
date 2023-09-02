@@ -1,13 +1,17 @@
 
 
+import { Box } from '@chakra-ui/react';
 import './App.css';
+import AllRoutes from './components/AllRoutes';
 
-import Home from './components/Home';
+
 
 function App() {
   return (
     <div className="App">
-    <Home/>
+      <Box marginTop={'25px'}>
+    <AllRoutes/>
+    </Box>
 
      
     </div>
