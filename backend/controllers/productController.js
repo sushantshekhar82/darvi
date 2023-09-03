@@ -1,6 +1,7 @@
 const productModel = require("../models/product")
 
 
+
 const products=async(req,res)=>{
     try {
         const product=new productModel({
@@ -25,4 +26,5 @@ const products=async(req,res)=>{
 }
 module.exports={
     products
+    
 }

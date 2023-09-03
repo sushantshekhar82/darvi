@@ -1,13 +1,16 @@
 const express=require('express')
 const app=express()
 const mongoose=require('mongoose')
+const cors = require('cors')
 const userRoute = require('./routes/userRoutes')
 const productRoute = require('./routes/productsRoutes')
 const cartRoute = require('./routes/cart')
 
-// app.get("/",(req,res)=>{
-//     res.status(200).send("welcome")
-// })
+app.use(express.json())
+app.use(cors({ origin: ['https://vendingmachine-theta.vercel.app','https://64de7e04c4b2ef124e393b4c--polite-monstera-043144.netlify.app','http://localhost:3000'], optionsSuccessStatus: 200 }));
+
+app.options("*", cors({ origin: ['https://vendingmachine-theta.vercel.app','https://64de7e04c4b2ef124e393b4c--polite-monstera-043144.netlify.app','http://localhost:3000'], optionsSuccessStatus: 200 }));
+
 app.use('/api',userRoute)
 app.use('/api/product',productRoute)
 app.use('/api/cart',cartRoute)

@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs')
-const userModel = require('../models/usermodel');
+const userModel = require('../models/userModel');
 const { response } = require('../routes/userRoutes');
 const jwt=require('jsonwebtoken');
 const config = require('../config/config');
@@ -64,13 +64,12 @@ const register_user=async(req,res)=>{
           name:req.body.name,
           email:req.body.email,
           password:spassword,
-          image:req.file.filename,
           mobile:req.body.mobile,
 
         })
         const userData=await userModel.findOne({email:req.body.email});
-
-       if(userData){
+        const usermobile=await userModel.findOne({mobile:req.body.mobile})
+       if(userData||usermobile){
         res.status(200).send({success:false,msg:"User already Registered"})
        }else{
         const user_data= await user.save();
@@ -86,8 +85,9 @@ const login=async(req,res)=>{
     try {
         const email=req.body.email;
         const password=req.body.password;
-
-        const userData=await userModel.findOne({email:email})
+        
+        const userData=await userModel.findOne({email})
+        console.log(userData)
         if(userData){
        const passwordMatch=   await bcrypt.compare(password,userData.password)
            if(passwordMatch){
@@ -111,11 +111,11 @@ const login=async(req,res)=>{
             res.status(200).send(resPonse)
 
            }else{
-            res.status(200).send({success:false,msg:"Login detail  are incorrect"}) 
+            res.status(200).send({success:false,msg:"Login detail are incorrect"}) 
            }
 
         }else{
-            res.status(200).send({success:false,msg:"Login detail  are incorrect"}) 
+            res.status(200).send({success:false,msg:"Invalid username or password,Please Register first"}) 
         }
         
     } catch (error) {
