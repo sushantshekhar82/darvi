@@ -3,7 +3,7 @@ import {
     Flex,
     Text,
     IconButton,
-    Button,
+   
     Stack,
     Collapse,
     Icon,
@@ -12,7 +12,7 @@ import {
     PopoverTrigger,
     PopoverContent,
     useColorModeValue,
-    useBreakpointValue,
+   
     useDisclosure,
     Image,
   } from '@chakra-ui/react';
@@ -33,9 +33,12 @@ import {
   } from "@chakra-ui/react";
 import { Link } from 'react-router-dom';
   import {AiOutlineUser,AiOutlineShoppingCart} from 'react-icons/ai'
+  import {BiSolidUser,BiSolidUserCheck} from 'react-icons/bi'
 import { useState } from 'react';
+import { Badge } from '@chakra-ui/react'
   export default function WithSubnavigation() {
     // const { isOpen, onToggle } = useDisclosure();
+    const token=localStorage.getItem('token')
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [placement, setPlacement] = useState('left')
     return (
@@ -84,9 +87,35 @@ import { useState } from 'react';
           </Flex>
   
           <Flex justifyContent={'center'} gap={'5px'} >
-              <AiOutlineUser fontSize={'25px'}/>
-              <AiOutlineShoppingCart fontSize={'25px'}/>
-            </Flex>
+             {
+              token?
+              <Link to="/profile">
+              <BiSolidUserCheck fontSize={'27px'}/>
+              </Link>
+              :
+              <Link to="/login">
+             <BiSolidUser fontSize={'25px'}/>
+             </Link>
+             }
+            <Flex position="relative">
+  <AiOutlineShoppingCart fontSize={'25px'} />
+  <Badge
+    position="absolute"
+    top="-10px"
+    right="-10px"
+    backgroundColor={"red.400"}
+    borderRadius={"50%"}
+    color={"white"}
+    width="20px"
+    height="20px"
+    display="flex"
+    justifyContent="center"
+    alignItems="center"
+  >
+    0
+  </Badge>
+</Flex>
+         </Flex>
         </Flex>
   
         {/* <Collapse in={isOpen} animateOpacity>
@@ -111,6 +140,14 @@ import { useState } from 'react';
             <Text fontSize={'20px'}>Our Story</Text>
             <Text fontSize={'20px'}>Contact</Text>
           </DrawerBody>
+          <DrawerFooter>
+          <Image
+                  width={"50%"}
+                  margin={"auto"}
+                  src="./Darvi.png"
+                  alt="Darvi Logo"
+                />
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
       </Box>

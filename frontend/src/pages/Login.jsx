@@ -12,11 +12,67 @@ import {
   Stack,
   Image,
   Box,
+  useToast,
 } from '@chakra-ui/react'
 import WithSubnavigation from '../components/Navbar'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { loginuser } from '../redux/login/action'
 
 export default function Login() {
+  const [email,setEmail]=useState("");
+  const [password,setPassword]=useState("")
+ const navigate=useNavigate()
+  const toast = useToast();
+  const dispatch=useDispatch()
+  const {loading,message}=useSelector((store)=>store.user)
+  const handleSubmit=()=>{
+    if(email!=="" && password!=="" ){
+      console.log(email,password)
+      dispatch(loginuser(email,password)).then((res)=>{
+       
+        if(res.msg==="Login detail are incorrect"){
+          toast({
+            title: "Incorrect Login Details" ,
+        
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+         });
+        }else if(res.msg==="Invalid username or password,Please Register first"){
+          toast({
+            title: "No user found, kindly Register " ,
+        
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+         });
+        }else{
+          toast({
+            title: "Login Successful" ,
+             status: "success",
+            duration: 3000,
+            isClosable: true,
+         });
+         localStorage.setItem("token",res.token)
+         localStorage.setItem("user",res.data.name)
+         
+        navigate("/")
+        }
+      })
+    }else{
+      toast({
+        title: "Enter all fields" ,
+    
+        status: "error",
+        duration: 1500,
+        isClosable: true,
+     });
+     setEmail("")
+     setPassword("")
+    }
+  }
   return (
 <Box>
     <WithSubnavigation/>
@@ -29,11 +85,11 @@ export default function Login() {
           <Heading fontSize={'2xl'} textAlign={'center'}>Sign in to your account</Heading>
           <FormControl id="email">
             <FormLabel>Email address</FormLabel>
-            <Input type="email" />
+            <Input type="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
           </FormControl>
           <FormControl id="password">
             <FormLabel>Password</FormLabel>
-            <Input type="password" />
+            <Input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
           </FormControl>
           <Stack spacing={6}>
             <Stack
@@ -45,8 +101,10 @@ export default function Login() {
             </Stack>
             <Flex justifyContent={'center'} gap={'5px'} paddingTop={'10px'}> <Text as={'h1'}>New User {" "}</Text><Link to="/register"><Text color={'pink.600'} fontWeight={'bold'}>Register Now</Text></Link></Flex>
         
-            <Button backgroundColor={'#345b22'} color={'white'} variant={'solid'}>
-              Sign in
+            <Button backgroundColor={'#345b22'} color={'white'} variant={'solid'}  disabled={loading}
+              onClick={handleSubmit}
+              >
+              {loading?"Wait...":"Sign in"}
             </Button>
           </Stack>
           </Stack>
