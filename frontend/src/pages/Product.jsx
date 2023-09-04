@@ -64,6 +64,7 @@ const Product = () => {
       
 
        </Grid>
+       <Image src="./group.webp" alt="darvi"/>
      </Box>
  </Box>
 
