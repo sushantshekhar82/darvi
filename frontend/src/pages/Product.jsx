@@ -27,7 +27,7 @@ const Product = () => {
           products.map((e)=>(
       <Box width={{base:'80%',lg:'250px'}} height={'300px'} border={'1px solid red'} margin={'auto'} key={e._id}>
           <Image src={`http://localhost:3000/public/productImages/${e.image1}`}/>
-         
+          
        </Box>
           ))
         }
