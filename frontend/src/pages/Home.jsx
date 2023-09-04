@@ -13,14 +13,15 @@ const Home = () => {
       <Box className='vector' >
       <Image src="./p2.webp" />
        </Box>
-       <Image   src="./alergyremovaldarvi.webp" width={'300px'} height={'305px'} className='image' alt="Wall of Waffels"/>
+       <Image   src="./sick-young-man-suffering.webp"  className='image' alt="darvi boy"/>
        <Box className='box'  >
-       <h1 className='h1'>Best Food Franchisee Business in India</h1>
+       <h1 className='h1'>Digestive Health</h1>
+       <Image src="./Frame23.png" width={{base:'90%',lg:'50%'}} className='h11'/>
        </Box>
       
       </Box>
-      <Box  marginTop={'-220px'}>
-      <Image className='img2' src="./darviweb.webp" width={'100%'} height={'300px'} alt="darvi web vector image"/>
+      <Box  marginTop={{base:'-300px',lg:'-200px'}} marginLeft={'-5px'}>
+      <Image className='img2' src="./darviweb.webp" width={'110%'} height={{base:'250px',lg:'300px'}} alt="darvi web vector image"/>
       </Box>
       
 

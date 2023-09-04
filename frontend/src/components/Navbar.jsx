@@ -128,7 +128,7 @@ import { Badge } from '@chakra-ui/react'
                 <Image
                   width={"50%"}
                   margin={"auto"}
-                  src="./Darvi.png"
+                  src="./darvilogo.webp"
                   alt="Darvi Logo"
                 />
               </DrawerHeader>
@@ -144,7 +144,7 @@ import { Badge } from '@chakra-ui/react'
           <Image
                   width={"50%"}
                   margin={"auto"}
-                  src="./Darvi.png"
+                  src="./darvilogo.webp"
                   alt="Darvi Logo"
                 />
           </DrawerFooter>
@@ -316,7 +316,7 @@ import { Badge } from '@chakra-ui/react'
     },
     {
       label: 'Products',
-      href: '/products%20page',
+      href: '/products_page',
     },
     {
       label: 'Our Story',
