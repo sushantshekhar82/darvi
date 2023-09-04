@@ -1,5 +1,5 @@
 
-import { Box, Image } from '@chakra-ui/react';
+import { Box, Button, Image } from '@chakra-ui/react';
 import '../App.css';
 import WithSubnavigation from '../components/Navbar';
 
@@ -13,16 +13,68 @@ const Home = () => {
       <Box className='vector' >
       <Image src="./p2.webp" />
        </Box>
-       <Image   src="./sick-young-man-suffering.webp"  className='image' alt="darvi boy"/>
+       <Image   src="./sick-young-man-suffering1.webp"  className='image' alt="darvi boy"/>
        <Box className='box'  >
        <h1 className='h1'>Digestive Health</h1>
        <Image src="./Frame23.png" width={{base:'90%',lg:'50%'}} className='h11'/>
+       <Button backgroundColor={'#8dc896'} color={'black'} fontWeight={'bold'} borderRadius={'10px'} className='h12'>Shop Now</Button>
        </Box>
       
       </Box>
-      <Box  marginTop={{base:'-300px',lg:'-200px'}} marginLeft={'-5px'}>
-      <Image className='img2' src="./darviweb.webp" width={'110%'} height={{base:'250px',lg:'300px'}} alt="darvi web vector image"/>
-      </Box>
+      <Box
+  marginTop={{ base: '-300px', md: '-200px', lg: '-220px' }}
+  marginLeft={{ base: '-5px', lg: '-10px' }}
+>
+  <Image
+   display={{base:'block',lg:'none'}}
+    className='img2'
+    
+    src="./darviweb.webp"
+    width='110%'
+    height={{ base: '250px', md: '250px', lg: '300px' }}
+    alt="darvi web vector image"
+  />
+  
+   <Image
+   display={{base:'none',lg:'block'}}
+    className='img2'
+    
+    src="./group.webp"
+    width='110%'
+    height={{ base: '270px', md: '250px', lg: 'auto' }}
+    alt="darvi web vector image"
+  />
+</Box>
+<Box marginTop={'555px'} display={{base:'none',lg:'block'}}>
+<Image
+  
+    src="./features1.webp"
+    margin={'auto'}
+    
+    alt="darvi web vector image"
+  />
+</Box>
+<Image
+   display={{base:'block',lg:'none'}}
+   src="./component1.webp"
+   marginTop={'235px'}
+    alt="darvi web vector image"
+  />
+  <Image
+   display={{base:'block',lg:'none'}}
+   src="./group108.png"
+   marginTop={'10px'}
+    alt="darvi web vector image"
+  />
+  <Image
+   display={{base:'block',lg:'none'}}
+   src="./features2.png"
+   marginTop={'25px'}
+    alt="darvi web vector image"
+  />
+  
+
+  
       
 
      

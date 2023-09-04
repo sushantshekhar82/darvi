@@ -33,6 +33,14 @@
   z-index: 0;
  
 }
+.h12{
+  position: absolute;
+  top: 390px;
+  left: 30px;
+  z-index: 0;
+  width: 200px;
+ 
+}
 .navbar{
   color: #000;
 
@@ -108,9 +116,18 @@ zindex{
     z-index: 5;
    
   }
+  .h12{
+    position: absolute;
+     top:550px;
+    left: 30px;
+    width: 150px;
+   
+    z-index: 5;
+     
+  }
   .image{
     position: absolute;
-    top: 110px;
+    top: 120px;
     left:-100px;
     width: 350px;
     height: 350px;
