@@ -1,1 +1,1 @@
-![Darvi Images](./gasodigi1.webp)
+![Darvi Images](../frontend/public/gasodigi1.webp)
