@@ -1,1 +1,9 @@
 ![Darvi Images](../frontend/public/gasodigi1.webp)
+![Darvi Images](../frontend/public/gasodigi2.webp)
+![Darvi Images](../frontend/public/gasodigi3.webp)
+![Darvi Images](../frontend/public/gasodigi4.webp)
+
+![Darvi Images](../frontend/public/nithya1.webp)
+![Darvi Images](../frontend/public/nithya2.webp)
+![Darvi Images](../frontend/public/nithya3.webp)
+![Darvi Images](../frontend/public/nithya4.webp)
