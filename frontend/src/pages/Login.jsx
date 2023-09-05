@@ -58,7 +58,7 @@ export default function Login() {
          localStorage.setItem("token",res.token)
          localStorage.setItem("user",res.data.name)
          
-        navigate("/")
+        navigate("/products_page")
         }
       })
     }else{

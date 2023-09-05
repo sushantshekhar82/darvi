@@ -1,9 +1,11 @@
-import { Box, Flex, Grid, GridItem, Image,Text,Button, Spinner } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, Image,Text,Button, Spinner, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {BsStar,BsStarFill,BsStarHalf} from 'react-icons/bs'
+import {BiMessageDetail} from 'react-icons/bi'
 import WithSubnavigation from '../components/Navbar';
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 function Star({ rating }) {
   return (
     <Box display="flex" alignItems="center">
@@ -32,8 +34,10 @@ const SingleProductPage = () => {
   const [products,setProducts]=useState([]);
   const [selectedImage, setSelectedImage] = useState('');
   const [loading,setLoading]=useState(false)
- 
+  const token=localStorage.getItem('token')
   const param=useParams()
+  const toast = useToast();
+  const navigate=useNavigate()
   useEffect(()=>{
     setLoading(true)
     
@@ -48,7 +52,7 @@ const SingleProductPage = () => {
     })
    
   },[])
- 
+
   const thumbnails = [
     
     `${products.image2url}`,
@@ -56,7 +60,51 @@ const SingleProductPage = () => {
     `${products.image4url}`,
     // Add more images here
   ];
-
+const handleCart=async()=>{
+  if(token){
+    await axios.post(`http://localhost:8080/api/cart/cartitems/addcart`, { 
+      productId:products._id,
+      productname:products.productname,
+      category:products.category,
+      price:products.price,
+      rating:products.rating,
+      productquantity:products.productquantity
+     }, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`
+    }
+  }).then((res)=>{
+    console.log(res.data.message)
+  if(res.data.message==='Product added to cart'){
+    toast({
+      title: "Added to Cart" ,
+  
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+   });
+  }else if(res.data.message==='Item already in cart'){
+    toast({
+      title: "Item already in cart" ,
+  
+      status: "warning",
+      duration: 3000,
+      isClosable: true,
+   });
+  }
+  })
+  }else{
+    toast({
+      title: "Login first" ,
+  
+      status: "warning",
+      duration: 3000,
+      isClosable: true,
+   });
+   navigate('/login')
+   
+  }
+}
   return (
     <Box >
       <WithSubnavigation/>
@@ -96,17 +144,40 @@ const SingleProductPage = () => {
          <GridItem>
           <Flex justifyContent={'space-between'}>
          <Text  as={'h1'} fontSize={{base:'4xl',lg:'5xl'}}  fontWeight={'bold'} paddingLeft={'10px'}>{products.productname}</Text>
+       
          <Star rating={products.rating} />
+       
+       
          </Flex>
+         <Flex justifyContent={'space-between'} alignItems={'center'}>
           <Text marginTop={'-10px'} as={'h4'} fontSize={'xl'} fontWeight={'bold'} paddingLeft={'10px'} >{products.category}</Text>
+         <Flex alignItems={'center'}> <BiMessageDetail/><Text>20 reviews</Text></Flex>
+         </Flex>
          <Text as={'h2'} width={'90%'} paddingLeft={'10px'} fontSize={'2xl'}>{products.shortdescription}</Text>
           <Text as={'h2'} fontSize={'3xl'} fontWeight={'bold'} paddingLeft={'10px'}>₹{products.price}</Text>
           <Text as={'h2'} width={'90%'} paddingLeft={'10px'} fontSize={'2xl'}>{products.longdescription}</Text>
-        
-          <Box marginTop={'10px'} paddingLeft={'10px'}><Button backgroundColor={'#345b22'}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={'100%'} height={'40px'}  borderRadius={'10px'}>Buy Now</Button></Box>
+         <Flex justifyContent={'space-between'}>
+          <Box marginTop={'10px'} paddingLeft={'10px'}><Button backgroundColor={'red.500'}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} height={'50px'}  borderRadius={'10px'} onClick={handleCart}>Add to Cart</Button></Box>
+          <Box marginTop={'10px'} ><Button backgroundColor={'#345b22'}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} height={'50px'}  borderRadius={'10px'}>Buy Now</Button></Box>
+         
+          </Flex>
          </GridItem>
       </Grid>
-}
+}<Tabs variant='unstyled' paddingLeft={'30px'} marginTop={'30px'}>
+  <TabList>
+    <Tab _selected={{ color: 'white', bg: '#5cac60' }} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} borderRadius={'5px'}>Description</Tab>
+    <Tab _selected={{ color: 'white', bg: '#5cac60' }} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} borderRadius={'5px'}>Reviews</Tab>
+  </TabList>
+  <TabPanels>
+    <TabPanel>
+     
+    <Text as={'h2'} width={'90%'}  fontSize={'xl'}>{products.longdescription}</Text>
+    </TabPanel>
+    <TabPanel>
+      <p>two!</p>
+    </TabPanel>
+  </TabPanels>
+</Tabs>
       </Box>
     </Box>
   )
