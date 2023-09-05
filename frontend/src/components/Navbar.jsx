@@ -77,7 +77,7 @@ import { Badge } from '@chakra-ui/react'
           </Flex>
           <Flex flex={{ base: 1 }} marginRight={{base:'30px',lg:'1px'}}  justifyContent={'space-around'} alignItems={'center'}  gap={'10px'}  >
             <Flex>
-             <Image src="./Darvi.png" alt="Darvi"/>
+             <Image src="https://github.com/sushantshekhar82/darviimages/raw/main/darvi.png" alt="Darvi"/>
              </Flex>
             <Flex display={{ base: 'none', md: 'flex',lg:'center' }} mr={150}  >
               <DesktopNav />

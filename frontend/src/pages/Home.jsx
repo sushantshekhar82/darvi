@@ -2,6 +2,7 @@
 import { Box, Button, Image } from '@chakra-ui/react';
 import '../App.css';
 import WithSubnavigation from '../components/Navbar';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
@@ -17,7 +18,7 @@ const Home = () => {
        <Box className='box'  >
        <h1 className='h1'>Digestive Health</h1>
        <Image src="./Frame23.png" width={{base:'90%',lg:'50%'}} className='h11'/>
-       <Button backgroundColor={'#8dc896'} color={'black'} fontWeight={'bold'} borderRadius={'10px'} className='h12'>Shop Now</Button>
+       <Link to="/products_page"><Button backgroundColor={'#8dc896'} color={'black'} fontWeight={'bold'} borderRadius={'10px'} className='h12'>Shop Now</Button></Link>
        </Box>
       
       </Box>
