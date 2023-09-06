@@ -14,15 +14,28 @@ const orderSchema = new mongoose.Schema({
                 ref: 'cart', // Reference to the cart model or the product model
                 required: true,
             },
+            productname:{
+                type:String,
+                required:true
+            },
+            image1url:{
+                type:String,
+                required:true
+            },
             quantity: {
                 type: Number,
-                required: true,
+                default: 1,
             },
         },
     ],
     totalPrice: {
         type: Number,
         required: true,
+    },
+    address: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Address', // Reference to the Address model
     },
     orderDate: {
         type: Date,
