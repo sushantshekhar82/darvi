@@ -26,6 +26,7 @@ const CartPage = () => {
   const id = localStorage.getItem("userid");
   const [totalprice, setTotalprice] = useState(0);
   const [loading,setLoading]=useState(false)
+   const [activeid,setActiveId]=useState("")
   useEffect(() => {
     setLoading(true)
     axios.get(`http://localhost:8080/api/cart/cartitems/${id}`).then((res) => {
@@ -35,9 +36,24 @@ const CartPage = () => {
     }).finally((res)=>{
       setLoading(false)
     });
-  }, []);
+  }, [count,length]);
   console.log(products, totalprice);
-
+const handleRemove=(prodid)=>{
+console.log(prodid)
+  axios.delete(`http://localhost:8080/api/cart/cartitems/delete/${prodid}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem("token"),
+    }
+  })
+  .then((res) => {
+    console.log(res.data);
+    setCount(count + 1);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+}
  
   return (
     <>
@@ -48,7 +64,7 @@ const CartPage = () => {
     <Box width={'80%'} margin={'auto'}>
     
    
-     <Text fontSize={'3xl'} fontWeight={'bold'}>{length===0?"Sorry Nothing in Cart Please Login":`My Cart(${length})`} </Text>
+     <Text fontSize={'3xl'} fontWeight={'bold'}>{length===0?"Sorry Nothing in Cart🥺":`My Cart(${length})`} </Text>
      {
       loading?
       <Box display={'flex'} justifyContent={{base:'center',lg:'center'}} marginTop={'10px'}  width={'100%'}><Spinner
@@ -75,15 +91,10 @@ const CartPage = () => {
                    <Text fontSize={'2xl'} fontWeight={'bold'}>{e.productname}</Text>
                    <Text fontSize={'sm'}>{e.category}</Text>
                    <Text fontSize={'xl'} fontWeight={'bold'} >₹{e.price}</Text>
-                   <select placeholder='Select option' style={{border:'1px solid grey',borderRadius:'5px',width:'100px'}}>
-  <option value=''>Qty</option>
-  <option value='option2'>1</option>
-  <option value='option3'>2</option>
-  <option value='option3'>3</option>
-</select>
+                  
                  
                  </Box>
-                 <Button float={'right'} backgroundColor={'red.500'} color={'white'}>Remove</Button>
+                 <Button float={'right'} backgroundColor={'red.500'} color={'white'} onClick={()=>handleRemove(e._id)}>Remove</Button>
              </GridItem>
              </Grid>
              <Divider marginTop={'5px'}/>
@@ -131,20 +142,20 @@ const CartPage = () => {
      <Text color={"Red"} as={"b"} fontSize={'2xl'}>Price Details</Text>
      <Flex justifyContent={'space-between'} alignItems={'center'}>
      <Text fontWeight={'bold'} fontSize={'xl'}>Price Details</Text>
-     <Text fontWeight={'bold'} color={"green.400"}>-{totalprice}</Text>
+     <Text fontWeight={'bold'} color={"green.400"}>₹{totalprice}</Text>
      </Flex>
      <Flex justifyContent={'space-between'} alignItems={'center'}>
      <Text fontWeight={'bold'} fontSize={'xl'}>Discount</Text>
-     <Text fontWeight={'bold'} color={"green.400"}>-0</Text>
+     <Text fontWeight={'bold'} color={"green.400"}>₹0</Text>
      </Flex>
      <Flex justifyContent={'space-between'} alignItems={'center'}>
      <Text fontWeight={'bold'} fontSize={'xl'}>Convenience Fee</Text>
-     <Text fontWeight={'bold'} color={"green.400"}>-0</Text>
+     <Text fontWeight={'bold'} color={"green.400"}>₹0</Text>
      </Flex>
      <Divider size={'2px'} margin={"20px"}/>
      <Flex justifyContent={'space-between'} alignItems={'center'}>
      <Text fontWeight={'bold'} fontSize={'xl'}>Total</Text>
-     <Text fontWeight={'bold'} color={"green.400"}>{totalprice}</Text>
+     <Text fontWeight={'bold'} color={"green.400"}>₹{totalprice}</Text>
      </Flex>
      <Flex justifyContent={'center'} alignItems={'center'}>
      <Button backgroundColor={'#345b22'} marginTop={'10px'} color={'white'} width={'60%'} textAlign={'center'}>Checkout</Button>
