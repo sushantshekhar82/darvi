@@ -7,7 +7,7 @@
 }
 .h1{
   position: absolute;
-  top: 200px;
+  top: 180px;
   left: 30px;
   color: #575757;
   
@@ -21,7 +21,7 @@
 }
 .h11{
   position: absolute;
-  top: 280px;
+  top: 265px;
   left: 30px;
   color: #000;
   text-align: center;
@@ -35,7 +35,7 @@
 }
 .h12{
   position: absolute;
-  top: 390px;
+  top: 370px;
   left: 30px;
   z-index: 0;
   width: 200px;
@@ -52,7 +52,7 @@ line-height: 60px; /* 333.333% */
 }
 .image{
   position: absolute;
-  top: 120px;
+  top: 140px;
   right: 270px;
   width:400px ;
   height: 400px;
@@ -73,16 +73,18 @@ line-height: 60px; /* 333.333% */
   width: 600px;
  
 }
-zindex{
-  position: absolute;
-  z-index: 1;
+.zindexall{
+ 
+  z-index:100;
  
 }
 .img2 {
   position: absolute;
   z-index: 3; /* Ensure img2 is on top */
 }
-
+.gradient-bg {
+  background: linear-gradient(to right, #8dc896, white);
+}
 @media screen and (max-width:520px) {
   .vector{
     position: absolute;
@@ -92,7 +94,7 @@ zindex{
   }
   .h1{
     position: absolute;
-    top: 450px;
+    top: 430px;
     left: 20px;
     color: #575757;
     padding-left: 10px;
@@ -118,7 +120,7 @@ zindex{
   }
   .h12{
     position: absolute;
-     top:550px;
+     top:565px;
     left: 30px;
     width: 150px;
    

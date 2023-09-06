@@ -31,23 +31,34 @@ import {
     DrawerContent,
     DrawerCloseButton,
   } from "@chakra-ui/react";
+  import '../App.css';
 import { Link } from 'react-router-dom';
   import {AiOutlineUser,AiOutlineShoppingCart} from 'react-icons/ai'
   import {BiSolidUser,BiSolidUserCheck} from 'react-icons/bi'
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Badge } from '@chakra-ui/react'
+import axios from 'axios';
+import { AppContext } from './AppContextProvider';
   export default function WithSubnavigation() {
     // const { isOpen, onToggle } = useDisclosure();
     const token=localStorage.getItem('token')
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [placement, setPlacement] = useState('left')
+    const {length,Length}=useContext(AppContext)
+    const id=localStorage.getItem('userid')
+    useEffect(()=>{
+      axios.get(`http://localhost:8080/api/cart/cartitems/${id}`).then((res)=>{
+           Length(res.data.cartCount)
+      })
+     },[length])
     return (
       <Box  position="fixed"
       bg={useColorModeValue("white", "white")}
       px={4}
       width="100%"
       top={0}
-      zIndex={1}>
+     className='zindexall'
+     >
         <Flex
          
           color={useColorModeValue('black', 'black')}
@@ -97,6 +108,7 @@ import { Badge } from '@chakra-ui/react'
              <BiSolidUser fontSize={'25px'}/>
              </Link>
              }
+             <Link to='/cart_page'>
             <Flex position="relative">
   <AiOutlineShoppingCart fontSize={'25px'} />
   <Badge
@@ -112,9 +124,10 @@ import { Badge } from '@chakra-ui/react'
     justifyContent="center"
     alignItems="center"
   >
-    0
+   {length>0?length:0}
   </Badge>
 </Flex>
+</Link>
          </Flex>
         </Flex>
   

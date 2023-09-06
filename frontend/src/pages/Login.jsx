@@ -57,7 +57,7 @@ export default function Login() {
          });
          localStorage.setItem("token",res.token)
          localStorage.setItem("user",res.data.name)
-         
+         localStorage.setItem("userid",res.data._id)
         navigate("/products_page")
         }
       })

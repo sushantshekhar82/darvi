@@ -1,11 +1,12 @@
 import { Box, Flex, Grid, GridItem, Image,Text,Button, Spinner, useToast } from '@chakra-ui/react';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import {BsStar,BsStarFill,BsStarHalf} from 'react-icons/bs'
 import {BiMessageDetail} from 'react-icons/bi'
 import WithSubnavigation from '../components/Navbar';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import { AppContext } from '../components/AppContextProvider';
 function Star({ rating }) {
   return (
     <Box display="flex" alignItems="center">
@@ -38,6 +39,15 @@ const SingleProductPage = () => {
   const param=useParams()
   const toast = useToast();
   const navigate=useNavigate()
+  const[count,setCount]=useState(0)
+  const {length,Length}=useContext(AppContext)
+    const id=localStorage.getItem('userid')
+    useEffect(()=>{
+      axios.get(`http://localhost:8080/api/cart/cartitems/${id}`).then((res)=>{
+      
+        Length(res.data.cartCount)
+      })
+     },[count,length])
   useEffect(()=>{
     setLoading(true)
     
@@ -83,10 +93,10 @@ const handleCart=async()=>{
       duration: 3000,
       isClosable: true,
    });
+   setCount(count+1)
   }else if(res.data.message==='Item already in cart'){
     toast({
-      title: "Item already in cart" ,
-  
+      title: "Item already in cart",
       status: "warning",
       duration: 3000,
       isClosable: true,
