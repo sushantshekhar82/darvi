@@ -29,18 +29,22 @@ const productSchema=mongoose.Schema({
         type:Number,
         required:true 
      },
-     image1:{
+     image1url:{
         type:String
 
     },
-    image2:{
+    image2url:{
         type:String
        
     },
-    image3:{
+    image3url:{
         type:String
        
     },
+    image4url:{
+      type:String
+     
+  },
 })
 const productModel=mongoose.model("product",productSchema)
 module.exports=productModel;

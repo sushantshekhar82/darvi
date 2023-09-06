@@ -25,6 +25,10 @@ const cartSchema=new mongoose.Schema({
          type:Number,
          required:true 
       },
+      image1url:{
+         type:String,
+         required:true 
+      },
      userId:{
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'user',
