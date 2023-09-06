@@ -7,9 +7,6 @@ export const AppContext = createContext();
 function AppContextProvider({ children }) {
  
   const [length, setLength] = useState(0);
-//   useEffect(() => {
-   
-//   }, []);
 
   
     const Length = (num) => {

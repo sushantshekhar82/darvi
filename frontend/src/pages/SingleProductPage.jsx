@@ -78,6 +78,7 @@ const handleCart=async()=>{
       category:products.category,
       price:products.price,
       rating:products.rating,
+      image1url:products.image1url,
       productquantity:products.productquantity
      }, {
     headers: {
