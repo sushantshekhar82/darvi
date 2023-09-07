@@ -8,6 +8,7 @@ import OrderPage from '../pages/OrderPage'
 import Register from '../pages/Resgister'
 import Login from '../pages/Login'
 import Checkout from '../pages/Checkout'
+import Success from '../pages/Success'
 const AllRoutes = () => {
   return (
     <Routes>
@@ -19,6 +20,7 @@ const AllRoutes = () => {
         <Route path='/cart_page' element={<CartPage/>}/>
         <Route path='/order page' element={<OrderPage/>}/>
         <Route path='/checkout'   element={<Checkout/>}/>
+        <Route path='/success' element={<Success/>}/>
     </Routes>
   )
 }

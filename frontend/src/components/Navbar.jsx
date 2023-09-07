@@ -15,6 +15,12 @@ import {
    
     useDisclosure,
     Image,
+    Menu,
+    MenuButton,
+    Button,
+    MenuList,
+    MenuItem,
+    MenuDivider,
   } from '@chakra-ui/react';
   import {
     HamburgerIcon,
@@ -32,7 +38,7 @@ import {
     DrawerCloseButton,
   } from "@chakra-ui/react";
   import '../App.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
   import {AiOutlineUser,AiOutlineShoppingCart} from 'react-icons/ai'
   import {BiSolidUser,BiSolidUserCheck} from 'react-icons/bi'
 import { useContext, useEffect, useState } from 'react';
@@ -46,11 +52,20 @@ import { AppContext } from './AppContextProvider';
     const [placement, setPlacement] = useState('left')
     const {length,Length}=useContext(AppContext)
     const id=localStorage.getItem('userid')
+    const navigate=useNavigate()
     useEffect(()=>{
       axios.get(`http://localhost:8080/api/cart/cartitems/${id}`).then((res)=>{
            Length(res.data.cartCount)
       })
      },[length])
+     const handleLogout = () => {
+     
+      localStorage.removeItem("token")
+      localStorage.removeItem("user")
+      localStorage.removeItem("userid")
+      window.location.reload()
+      navigate("/")
+    };
     return (
       <Box  position="fixed"
       bg={useColorModeValue("white", "white")}
@@ -90,24 +105,45 @@ import { AppContext } from './AppContextProvider';
             <Flex>
              <Image src="https://github.com/sushantshekhar82/darviimages/raw/main/darvi.png" alt="Darvi"/>
              </Flex>
-            <Flex display={{ base: 'none', md: 'flex',lg:'center' }} mr={150}  >
+            <Flex display={{ base: 'none', md: 'flex',lg:'center' }} mr={150}>
               <DesktopNav />
             </Flex>
 
-           
-          </Flex>
+           </Flex>
   
           <Flex justifyContent={'center'} gap={'5px'} >
-             {
-              token?
-              <Link to="/profile">
-              <BiSolidUserCheck fontSize={'27px'}/>
+          {token ? (
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={"full"}
+                  variant={"link"}
+                  cursor={"pointer"}
+                  minW={0}
+                >
+                 <BiSolidUserCheck fontSize={'27px'}/>
+                </MenuButton>
+                <MenuList>
+                  <MenuItem><Text fontWeight={'bold'}>Welcome! {localStorage.getItem('user')}</Text></MenuItem>
+                  <MenuItem><Link to="/order page"><Text fontWeight={'bold'}>My Order</Text></Link></MenuItem>
+                 
+                  <MenuDivider />
+                  <MenuItem>
+                  <Button bgGradient="linear(to-r,red.400, red.300)"textAlign={'center'} 
+         _hover={
+          {
+           cursor:'pointer'
+          }}  fontSize={'sm'}  color={'white'} fontWeight={'bold'} width={{base:'70px',lg:'100px'}} height={'20px'}  borderRadius={'2px'} onClick={handleLogout} >LogOut</Button>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            ) : (
+              <Link  to="/login">
+                
+                <BiSolidUser fontSize={'25px'}/>
               </Link>
-              :
-              <Link to="/login">
-             <BiSolidUser fontSize={'25px'}/>
-             </Link>
-             }
+            )}
+             
              <Link to='/cart_page'>
             <Flex position="relative">
   <AiOutlineShoppingCart fontSize={'25px'} />
@@ -333,11 +369,11 @@ import { AppContext } from './AppContextProvider';
     },
     {
       label: 'Our Story',
-      href: '/about%20us',
+      href: '',
     },
     {
       label: 'Contact',
-      href: '/contact%20us',
+      href: '',
     }
 
   ];

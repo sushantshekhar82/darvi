@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import WithSubnavigation from '../components/Navbar'
 import { Box, Button, Divider, Flex, FormControl, FormLabel, Grid, GridItem, Image, Input, Radio, Text, useToast } from '@chakra-ui/react'
 import axios from 'axios';
+import { AppContext } from '../components/AppContextProvider';
+import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
     const [products, setProducts] = useState([]);
@@ -14,6 +16,9 @@ const Checkout = () => {
     const [city,setCity]=useState("")
     const [mobile,setMobile]=useState("")
     const toast=useToast()
+    const[count,setCount]=useState(0)
+    const {length,Length}=useContext(AppContext)
+    const navigate=useNavigate()
     useEffect(() => {
         setLoading(true)
         axios.get(`http://localhost:8080/api/cart/cartitems/${id}`).then((res) => {
@@ -24,6 +29,12 @@ const Checkout = () => {
           setLoading(false)
         });
       }, []);
+      useEffect(()=>{
+        axios.get(`http://localhost:8080/api/cart/cartitems/${id}`).then((res)=>{
+        
+          Length(res.data.cartCount)
+        })
+       },[count,length])
       const handlePlaceOrder=async()=>{
         if(name!=="" && address!=="" && zipcode!=="" && city!=="" && mobile!=="" ){
        console.log(name,address,zipcode,city,mobile)
@@ -42,7 +53,17 @@ const Checkout = () => {
           Authorization: `${localStorage.getItem("token")}`
         }
       }).then((res)=>{
-        console.log(res)
+        if(res.data.message==="Order placed successfully"){
+          toast({
+            title: "Order placed successfully" ,
+        
+            status: "success",
+            duration: 7000,
+            isClosable: true,
+         });
+         navigate("/success")
+        }
+       setCount(count+1)
       });
       }else{
           toast({

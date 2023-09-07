@@ -172,10 +172,6 @@ const handleCart=async()=>{
           {
            cursor:'pointer'
           }}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} height={'50px'}  borderRadius={'10px'} onClick={handleCart}>Add to Cart</Button></Box>
-          <Box marginTop={'10px'} ><Button bgGradient="linear(to-r,#345b22, green.300)"  _hover={
-          {
-           cursor:'pointer'
-          }}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} height={'50px'}  borderRadius={'10px'}>Buy Now</Button></Box>
          
           </Flex>
          </GridItem>
