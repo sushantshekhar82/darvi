@@ -7,6 +7,7 @@ import CartPage from '../pages/CartPage'
 import OrderPage from '../pages/OrderPage'
 import Register from '../pages/Resgister'
 import Login from '../pages/Login'
+import Checkout from '../pages/Checkout'
 const AllRoutes = () => {
   return (
     <Routes>
@@ -17,6 +18,7 @@ const AllRoutes = () => {
         <Route path='/products_page/:id' element={<SingleProductPage/>}/>
         <Route path='/cart_page' element={<CartPage/>}/>
         <Route path='/order page' element={<OrderPage/>}/>
+        <Route path='/checkout'   element={<Checkout/>}/>
     </Routes>
   )
 }

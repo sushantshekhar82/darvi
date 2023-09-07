@@ -168,8 +168,14 @@ const handleCart=async()=>{
           <Text as={'h2'} fontSize={'3xl'} fontWeight={'bold'} paddingLeft={'10px'}>₹{products.price}</Text>
           <Text as={'h2'} width={'90%'} paddingLeft={'10px'} fontSize={'2xl'}>{products.longdescription}</Text>
          <Flex justifyContent={'space-between'}>
-          <Box marginTop={'10px'} paddingLeft={'10px'}><Button backgroundColor={'red.500'}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} height={'50px'}  borderRadius={'10px'} onClick={handleCart}>Add to Cart</Button></Box>
-          <Box marginTop={'10px'} ><Button backgroundColor={'#345b22'}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} height={'50px'}  borderRadius={'10px'}>Buy Now</Button></Box>
+          <Box marginTop={'10px'} paddingLeft={'10px'}><Button bgGradient="linear(to-r,red.400, red.300)"  _hover={
+          {
+           cursor:'pointer'
+          }}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} height={'50px'}  borderRadius={'10px'} onClick={handleCart}>Add to Cart</Button></Box>
+          <Box marginTop={'10px'} ><Button bgGradient="linear(to-r,#345b22, green.300)"  _hover={
+          {
+           cursor:'pointer'
+          }}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} height={'50px'}  borderRadius={'10px'}>Buy Now</Button></Box>
          
           </Flex>
          </GridItem>

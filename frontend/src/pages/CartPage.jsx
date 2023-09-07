@@ -12,12 +12,13 @@ import {
   Select,
   Spinner,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../components/AppContextProvider";
 import WithSubnavigation from "../components/Navbar";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const CartPage = () => {
   //http://localhost:8080/api/cart/cartitems/64f40bdf05cda2833de50720
   const { length, Length } = useContext(AppContext);
@@ -26,7 +27,9 @@ const CartPage = () => {
   const id = localStorage.getItem("userid");
   const [totalprice, setTotalprice] = useState(0);
   const [loading,setLoading]=useState(false)
-   const [activeid,setActiveId]=useState("")
+  const toast = useToast();
+  const navigate=useNavigate()
+   
   useEffect(() => {
     setLoading(true)
     axios.get(`http://localhost:8080/api/cart/cartitems/${id}`).then((res) => {
@@ -54,7 +57,28 @@ console.log(prodid)
     console.error(error);
   });
 }
+
+const handleCoupon=()=>{
+  toast({
+    title: "Enter Valid Coupon",
+    status: "warning",
+    duration: 3000,
+    isClosable: true,
+ });
  
+}
+const handleCheckout=()=>{
+  if(length>0){
+    navigate("/checkout")
+  }else{
+    toast({
+      title: "Fill your Cart",
+      status: "warning",
+      duration: 3000,
+      isClosable: true,
+   });
+   }
+}
   return (
     <>
     <WithSubnavigation />
@@ -124,7 +148,7 @@ console.log(prodid)
        <InputRightElement width="30%">
          <Button
         
-        
+         onClick={handleCoupon}
            bgGradient="linear(to-r,blue.500, blue.400)"
            borderRadius={'0px 5px 5px 0px'}
            color="white" // Button text color
@@ -158,7 +182,11 @@ console.log(prodid)
      <Text fontWeight={'bold'} color={"green.400"}>₹{totalprice}</Text>
      </Flex>
      <Flex justifyContent={'center'} alignItems={'center'}>
-     <Button backgroundColor={'#345b22'} marginTop={'10px'} color={'white'} width={'60%'} textAlign={'center'}>Checkout</Button>
+     <Button   bgGradient="linear(to-r,#345b22, green.300)"  _hover={
+          {
+           cursor:'pointer'
+          }
+          }  marginTop={'10px'} color={'white'} width={'60%'} textAlign={'center'} onClick={()=>handleCheckout()}>Checkout</Button>
      </Flex>
      </Box>
          </GridItem>

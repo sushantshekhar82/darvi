@@ -70,7 +70,11 @@ console.log(loading)
           <Text marginTop={'-10px'} as={'h4'} fontSize={'xl'} fontWeight={'bold'} paddingLeft={'10px'} >{e.category}</Text>
           <Text as={'h2'} fontSize={'3xl'} fontWeight={'bold'} paddingLeft={'10px'}>₹{e.price}</Text>
           <Box paddingLeft={'10px'}><Star rating={e.rating} /></Box>
-          <Box marginTop={'10px'} paddingLeft={'10px'}><Button backgroundColor={'#345b22'}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={'100%'} height={'40px'}  borderRadius={'10px'}>Buy Now</Button></Box>
+          <Box marginTop={'10px'} paddingLeft={'10px'}><Button bgGradient="linear(to-r,#345b22, green.300)" 
+           _hover={
+          {
+           cursor:'pointer'
+          } } fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={'100%'} height={'40px'}  borderRadius={'10px'}>Buy Now</Button></Box>
           </Link>
        </Box>
     
