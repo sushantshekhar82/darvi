@@ -39,8 +39,10 @@ import {
   } from "@chakra-ui/react";
   import '../App.css';
 import { Link, useNavigate } from 'react-router-dom';
-  import {AiOutlineUser,AiOutlineShoppingCart} from 'react-icons/ai'
-  import {BiSolidUser,BiSolidUserCheck} from 'react-icons/bi'
+  import {AiOutlineUser,AiOutlineShoppingCart,AiFillHome} from 'react-icons/ai'
+  import {BiSolidUser,BiSolidUserCheck,BiSolidContact} from 'react-icons/bi'
+  import{BsFillBox2HeartFill, BsHeartFill} from 'react-icons/bs'
+  import{FaArrowsDownToPeople, FaPeopleArrows, FaPeopleCarry} from 'react-icons/fa'
 import { useContext, useEffect, useState } from 'react';
 import { Badge } from '@chakra-ui/react'
 import axios from 'axios';
@@ -53,8 +55,10 @@ import { AppContext } from './AppContextProvider';
     const {length,Length}=useContext(AppContext)
     const id=localStorage.getItem('userid')
     const navigate=useNavigate()
+    const user=localStorage.getItem('user')
+    const [users,setUsers]=useState(user)
     useEffect(()=>{
-      axios.get(`http://localhost:8080/api/cart/cartitems/${id}`).then((res)=>{
+      axios.get(`https://agreeable-coat-fawn.cyclic.app/api/cart/cartitems/${id}`).then((res)=>{
            Length(res.data.cartCount)
       })
      },[length])
@@ -183,11 +187,13 @@ import { AppContext } from './AppContextProvider';
               </DrawerHeader>
               <DrawerCloseButton  fontSize={'10px'} />
           <DrawerBody>
-
-            <Text fontSize={'20px'}>Home</Text>
-            <Text fontSize={'20px'}>Products</Text>
-            <Text fontSize={'20px'}>Our Story</Text>
-            <Text fontSize={'20px'}>Contact</Text>
+          <Flex gap={'5px'}>   Welcome!{users? <Text fontWeight={'bold'} marginLeft={'2px'}>{users}</Text>:<Link to="/login"><Button backgroundColor={'green.400'}>Sign in</Button></Link>}</Flex>
+           <Flex gap={'5px'} alignItems={'center'}marginTop={'15px'}><Link to="/"><AiFillHome/> <Text fontWeight={'bold'} fontSize={'20px'}>Home</Text></Link></Flex>
+           <Flex gap={'5px'} alignItems={'center'}marginTop={'15px'}><Link to="/products_page"> <BsHeartFill/><Text fontWeight={'bold'} fontSize={'20px'}>Products</Text></Link></Flex>
+           <Flex gap={'5px'} alignItems={'center'}marginTop={'15px'}>  <FaPeopleArrows/><Text fontWeight={'bold'} fontSize={'20px'}>Our Story</Text></Flex>
+           <Flex gap={'5px'} alignItems={'center'}marginTop={'15px'}><BiSolidContact/> <Text fontWeight={'bold'} fontSize={'20px'}>Contact</Text></Flex>
+           <Flex gap={'5px'} alignItems={'center'}marginTop={'15px'}><Link to="/order%20page"><FaPeopleCarry/> <Text fontWeight={'bold'} fontSize={'20px'}>My Order</Text></Link></Flex>
+          {token?<Button marginTop={'15px'} backgroundColor={'red.700'} fontWeight={'bold'} onClick={handleLogout} color={'white'}>LogOut</Button>:""}
           </DrawerBody>
           <DrawerFooter>
           <Image

@@ -43,7 +43,7 @@ const SingleProductPage = () => {
   const {length,Length}=useContext(AppContext)
     const id=localStorage.getItem('userid')
     useEffect(()=>{
-      axios.get(`http://localhost:8080/api/cart/cartitems/${id}`).then((res)=>{
+      axios.get(`https://agreeable-coat-fawn.cyclic.app/api/cart/cartitems/${id}`).then((res)=>{
       
         Length(res.data.cartCount)
       })
@@ -52,7 +52,7 @@ const SingleProductPage = () => {
     setLoading(true)
     
 
-    axios.get(`http://localhost:8080/api/product/allproducts/${param.id}`).then((res)=>{
+    axios.get(`https://agreeable-coat-fawn.cyclic.app/api/product/allproducts/${param.id}`).then((res)=>{
       setProducts(res.data)
       if (res.data) {
         setSelectedImage(res.data.image2url);
@@ -72,7 +72,7 @@ const SingleProductPage = () => {
   ];
 const handleCart=async()=>{
   if(token){
-    await axios.post(`http://localhost:8080/api/cart/cartitems/addcart`, { 
+    await axios.post(`https://agreeable-coat-fawn.cyclic.app/api/cart/cartitems/addcart`, { 
       productId:products._id,
       productname:products.productname,
       category:products.category,

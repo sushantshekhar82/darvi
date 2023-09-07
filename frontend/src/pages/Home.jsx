@@ -15,7 +15,7 @@ const Home = () => {
 
   //   setLoading(true)
 
-  //   axios.get("http://localhost:8080/api/product/allproducts").then((res)=>{
+  //   axios.get("https://agreeable-coat-fawn.cyclic.app/api/product/allproducts").then((res)=>{
 
   //     setProducts(res.data)
 

@@ -7,7 +7,7 @@ const OrderPage = () => {
   const id=localStorage.getItem('userid')
  const [orders,setOrders]=useState([])
   useEffect(()=>{
-    axios.get(`http://localhost:8080/api/order/myorders/₹{id}`).then((res)=>{
+    axios.get(`https://agreeable-coat-fawn.cyclic.app/api/order/myorders/${id}`).then((res)=>{
          setOrders(res.data.orders)
     })
    },[])

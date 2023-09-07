@@ -5,7 +5,7 @@ export const loginuser = (email,password) =>async (dispatch) => {
   dispatch({ type: types.USER_LOADING });
   try {
     let res = await axios
-    .post(`http://localhost:8080/api/login`,{
+    .post(`https://agreeable-coat-fawn.cyclic.app/api/login`,{
       email,
       password
     }) 

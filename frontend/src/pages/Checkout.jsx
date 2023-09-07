@@ -21,7 +21,7 @@ const Checkout = () => {
     const navigate=useNavigate()
     useEffect(() => {
         setLoading(true)
-        axios.get(`http://localhost:8080/api/cart/cartitems/${id}`).then((res) => {
+        axios.get(`https://agreeable-coat-fawn.cyclic.app/api/cart/cartitems/${id}`).then((res) => {
           setProducts(res.data.cart);
         
           setTotalprice(res.data.totalCartPrice);
@@ -30,7 +30,7 @@ const Checkout = () => {
         });
       }, []);
       useEffect(()=>{
-        axios.get(`http://localhost:8080/api/cart/cartitems/${id}`).then((res)=>{
+        axios.get(`https://agreeable-coat-fawn.cyclic.app/api/cart/cartitems/${id}`).then((res)=>{
         
           Length(res.data.cartCount)
         })
@@ -38,7 +38,7 @@ const Checkout = () => {
       const handlePlaceOrder=async()=>{
         if(name!=="" && address!=="" && zipcode!=="" && city!=="" && mobile!=="" ){
        console.log(name,address,zipcode,city,mobile)
-       await axios.post(`http://localhost:8080/api/order/placeorder`, { 
+       await axios.post(`https://agreeable-coat-fawn.cyclic.app/api/order/placeorder`, { 
         userId: localStorage.getItem("userid"),
         products:products,
         totalPrice:totalprice,
