@@ -1,6 +1,15 @@
 const mongoose = require('mongoose');
 
-
+function formatDateToDMY() {
+    const now = new Date();
+  
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Note: Month is 0-indexed, so we add 1.
+    const year = now.getFullYear();
+  
+    const formattedDate = `${day}-${month}-${year}`;
+    return formattedDate;
+  }
 const orderSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -9,7 +18,7 @@ const orderSchema = new mongoose.Schema({
     },
     products: [
         {
-            product: {
+            productId: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'cart', // Reference to the cart model or the product model
                 required: true,
@@ -17,15 +26,27 @@ const orderSchema = new mongoose.Schema({
             productname:{
                 type:String,
                 required:true
-            },
-            image1url:{
+            }, 
+             category:{
                 type:String,
-                required:true
-            },
-            quantity: {
-                type: Number,
-                default: 1,
-            },
+                required:true 
+             },
+             price:{
+                type:Number,
+                required:true 
+             },
+             rating:{
+                type:Number,
+                required:true 
+             },
+             productquantity:{
+                type:Number,
+                required:true 
+             },
+             image1url:{
+                type:String,
+                required:true 
+             },
         },
     ],
     totalPrice: {

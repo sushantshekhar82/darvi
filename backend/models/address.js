@@ -21,6 +21,11 @@ const addressSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  userId:{
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'user',
+    required: true  
+ }
 });
 
 const Address = mongoose.model('Address', addressSchema);

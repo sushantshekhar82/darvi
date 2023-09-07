@@ -16,10 +16,14 @@ orderRouter.post('/placeorder', async (req, res) => {
   
       // Create an array to hold the product subdocuments
       const productsArray = products.map((product) => ({
-        product: product.product, // Assuming productId is the ID of the product being ordered
+        productId: product.productId, // Assuming productId is the ID of the product being ordered
         productname:product.productname,
+        category:product.category,
+        price:product.price,
+        rating:product.rating,
+        productquantity: product.productquantity,
         image1url:product.image1url,
-        quantity: product.quantity,
+        
       }));
   
       // Create a new address using the Address model
@@ -29,6 +33,7 @@ orderRouter.post('/placeorder', async (req, res) => {
         zipcode: zipcode,
         city: city,
         mobile: mobile,
+        userId:userId
       });
   
       // Save the address to the database
