@@ -58,5 +58,21 @@ orderRouter.post('/placeorder', async (req, res) => {
     }
   });
 // Add more routes related to orders (e.g., get order history) here if needed
+orderRouter.get('/myorders/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
 
+    // Find all orders with the specified userId
+    const orders = await orderModel.find({ userId }).populate('address').sort({ createdAt: 1 }); // Assuming you want to populate the associated address
+
+    if (!orders || orders.length === 0) {
+      return res.status(404).json({ message: 'No orders found for this user' });
+    }
+    const reversedOrders = orders.reverse();
+
+    res.status(200).json({ message: 'Orders found', orders:reversedOrders });
+  } catch (error) {
+    res.status(500).json({ error: error.message});
+  }
+});
 module.exports = orderRouter;
