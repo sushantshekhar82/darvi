@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import TestimonialCarousel from "../components/Testimonials";
 import Footer from "../components/Footer";
+import ImageFader from "../components/ImageFader";
 
 const Home = () => {
   // const [products,setProducts]=useState([]);
@@ -24,6 +25,8 @@ const Home = () => {
   //   })
   // },[])
   // console.log(products[0])
+  const imageUrls = ['./womenstomach.webp', './womendaarvi.webp']; // Replace with your image URLs
+
   return (
     <div className="App">
       <Box style={{ position: "relative" }} height={"100vh"}>
@@ -36,11 +39,15 @@ const Home = () => {
         <Box className="vector">
           <Image src="./p2.webp" />
         </Box>
-        <Image
-          src="./sick-young-man-suffering1.webp"
-          className="image"
-          alt="darvi boy"
-        />
+        <Box className="image">
+        <ImageFader
+        images={imageUrls}
+        width={{base:'400px',lg:'500px'}}
+        height={{base:'400px',lg:'500px'}}
+        interval={5000} // 1 second interval
+      />
+        </Box>
+       
         <Box className="box">
           <h1 className="h1">Digestive Health</h1>
           <Image
@@ -61,33 +68,12 @@ const Home = () => {
           </Link>
         </Box>
       </Box>
-      <Box
-        marginTop={{ base: "-300px", md: "-200px", lg: "-200px" }}
-        marginLeft={{ base: "-5px", lg: "-10px" }}
-      >
-        <Image
-          display={{ base: "block", lg: "none" }}
-          className="img2"
-          src="./darviweb.webp"
-          width="110%"
-          height={{ base: "250px", md: "250px", lg: "300px" }}
-          alt="darvi web vector image"
-        />
-
-        <Image
-          display={{ base: "none", lg: "block" }}
-          className="img2"
-          src="./group.webp"
-          width="110%"
-          height={{ base: "270px", md: "250px", lg: "auto" }}
-          alt="darvi web vector image"
-        />
-      </Box>
+      <Image src="./group.webp" alt="darvi"   display={{ base: "none", lg: "block" }}/>
 
       <Image
         display={{ base: "block", lg: "none" }}
         src="./component1.webp"
-        marginTop={"235px"}
+      
         alt="darvi web vector image"
       />
       <Image
@@ -99,7 +85,7 @@ const Home = () => {
       <Text
         textAlign={"center"}
         fontSize={{ base: "30px", lg: "40px" }}
-        marginTop={{ base: "10px", lg: "540px" }}
+        marginTop={{ base: "10px", lg: "10px" }}
         fontWeight={"bold"}
       >
         Our Products
@@ -154,6 +140,7 @@ const Home = () => {
               </Text>
 
               <Box marginTop={"10px"} paddingLeft={"10px"}>
+                <Link to="/products_page">
                 <Button
                   backgroundColor={"#345b22"}
                   fontSize={"xl"}
@@ -165,6 +152,7 @@ const Home = () => {
                 >
                   Check Now
                 </Button>
+                </Link>
               </Box>
             </GridItem>
           </Grid>
@@ -213,6 +201,7 @@ const Home = () => {
               </Text>
 
               <Box marginTop={"10px"} paddingLeft={"10px"}>
+              <Link to="/products_page">
                 <Button
                   backgroundColor={"#345b22"}
                   fontSize={"xl"}
@@ -224,6 +213,7 @@ const Home = () => {
                 >
                   Check Now
                 </Button>
+                </Link>
               </Box>
             </GridItem>
           </Grid>

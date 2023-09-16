@@ -7,6 +7,7 @@ import {BiMessageDetail} from 'react-icons/bi'
 import WithSubnavigation from '../components/Navbar';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { AppContext } from '../components/AppContextProvider';
+import Footer from '../components/Footer';
 function Star({ rating }) {
   return (
     <Box display="flex" alignItems="center">
@@ -179,19 +180,17 @@ const handleCart=async()=>{
 }<Tabs variant='unstyled' paddingLeft={'30px'} marginTop={'30px'}>
   <TabList>
     <Tab _selected={{ color: 'white', bg: '#5cac60' }} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} borderRadius={'5px'}>Description</Tab>
-    <Tab _selected={{ color: 'white', bg: '#5cac60' }} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} borderRadius={'5px'}>Reviews</Tab>
-  </TabList>
+    </TabList>
   <TabPanels>
     <TabPanel>
      
     <Text as={'h2'} width={'90%'}  fontSize={'xl'}>{products.longdescription}</Text>
     </TabPanel>
-    <TabPanel>
-      <p>two!</p>
-    </TabPanel>
+   
   </TabPanels>
 </Tabs>
       </Box>
+      <Footer/>
     </Box>
   )
 }

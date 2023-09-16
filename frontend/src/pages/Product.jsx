@@ -4,6 +4,7 @@ import { Box, Button, Grid, GridItem, Image, Spinner, Text } from '@chakra-ui/re
 import axios from 'axios'
 import {BsStar,BsStarFill,BsStarHalf} from 'react-icons/bs'
 import { Link } from 'react-router-dom'
+import Footer from '../components/Footer'
 function Star({ rating }) {
   return (
     <Box display="flex" alignItems="center">
@@ -88,7 +89,7 @@ console.log(loading)
      </Box>
  </Box>
 
- 
+ <Footer/>
     </Box>
   )
 }
