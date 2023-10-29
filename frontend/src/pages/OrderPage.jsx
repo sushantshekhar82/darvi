@@ -2,20 +2,28 @@ import React, { useEffect, useState } from 'react'
 import WithSubnavigation from '../components/Navbar'
 import { Box, Grid, GridItem, Text } from '@chakra-ui/react'
 import axios from 'axios'
+import config from '../config'
 
 const OrderPage = () => {
   const id=localStorage.getItem('userid')
  const [orders,setOrders]=useState([])
+ const [loading,setLoading]=useState(false)
   useEffect(()=>{
-    axios.get(`https://agreeable-coat-fawn.cyclic.app/api/order/myorders/${id}`).then((res)=>{
+    setLoading(true)
+    axios.get(`${config.DEPLOYED_URL}/api/order/myorders/${id}`).then((res)=>{
          setOrders(res.data.orders)
-    })
+    }).finally((res)=>{
+      setLoading(false)
+    });
    },[])
    console.log(orders)
   return (
     <div>
       <WithSubnavigation/>
+      
       <Box marginTop={'100px'}>
+       
+       
         {orders.length===0?<Text fontSize={'2xl'}>"Nothing You Ordered🥺"</Text>
           :<Box width={{base:'90%',lg:'70%'}} margin={'auto'}>
        {
@@ -68,8 +76,9 @@ const OrderPage = () => {
        }
       </Box>
         }
-      
+        
       </Box>
+      
     </div>
   )
 }

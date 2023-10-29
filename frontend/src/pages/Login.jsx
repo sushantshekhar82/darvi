@@ -97,7 +97,7 @@ export default function Login() {
               align={'start'}
               justify={'space-between'}>
               <Checkbox>Remember me</Checkbox>
-              <Text color={'blue.400'}>Forgot password?</Text>
+             <Link to="/login/reset_password_mail"> <Text color={'blue.400'}>Forgot password?</Text></Link>
             </Stack>
             <Flex justifyContent={'center'} gap={'5px'} paddingTop={'10px'}> <Text as={'h1'}>New User {" "}</Text><Link to="/register"><Text color={'pink.600'} fontWeight={'bold'}>Register Now</Text></Link></Flex>
         

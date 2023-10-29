@@ -19,6 +19,7 @@ import { AppContext } from "../components/AppContextProvider";
 import WithSubnavigation from "../components/Navbar";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import config from "../config";
 const CartPage = () => {
   //https://agreeable-coat-fawn.cyclic.app/api/cart/cartitems/64f40bdf05cda2833de50720
   const { length, Length } = useContext(AppContext);
@@ -32,7 +33,7 @@ const CartPage = () => {
    
   useEffect(() => {
     setLoading(true)
-    axios.get(`https://agreeable-coat-fawn.cyclic.app/api/cart/cartitems/${id}`).then((res) => {
+    axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`).then((res) => {
       setProducts(res.data.cart);
       Length(res.data.cartCount);
       setTotalprice(res.data.totalCartPrice);
@@ -43,7 +44,7 @@ const CartPage = () => {
   console.log(products, totalprice);
 const handleRemove=(prodid)=>{
 console.log(prodid)
-  axios.delete(`https://agreeable-coat-fawn.cyclic.app/api/cart/cartitems/delete/${prodid}`, {
+  axios.delete(`${config.DEPLOYED_URL}/api/cart/cartitems/delete/${prodid}`, {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': localStorage.getItem("token"),

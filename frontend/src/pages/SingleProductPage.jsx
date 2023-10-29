@@ -8,6 +8,7 @@ import WithSubnavigation from '../components/Navbar';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { AppContext } from '../components/AppContextProvider';
 import Footer from '../components/Footer';
+import config from '../config';
 function Star({ rating }) {
   return (
     <Box display="flex" alignItems="center">
@@ -44,7 +45,7 @@ const SingleProductPage = () => {
   const {length,Length}=useContext(AppContext)
     const id=localStorage.getItem('userid')
     useEffect(()=>{
-      axios.get(`https://agreeable-coat-fawn.cyclic.app/api/cart/cartitems/${id}`).then((res)=>{
+      axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`).then((res)=>{
       
         Length(res.data.cartCount)
       })
@@ -53,7 +54,7 @@ const SingleProductPage = () => {
     setLoading(true)
     
 
-    axios.get(`https://agreeable-coat-fawn.cyclic.app/api/product/allproducts/${param.id}`).then((res)=>{
+    axios.get(`${config.DEPLOYED_URL}/api/product/allproducts/${param.id}`).then((res)=>{
       setProducts(res.data)
       if (res.data) {
         setSelectedImage(res.data.image2url);
@@ -73,7 +74,7 @@ const SingleProductPage = () => {
   ];
 const handleCart=async()=>{
   if(token){
-    await axios.post(`https://agreeable-coat-fawn.cyclic.app/api/cart/cartitems/addcart`, { 
+    await axios.post(`${config.DEPLOYED_URL}/api/cart/cartitems/addcart`, { 
       productId:products._id,
       productname:products.productname,
       category:products.category,

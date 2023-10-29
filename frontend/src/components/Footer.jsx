@@ -81,7 +81,7 @@ export default function Footer() {
           spacing={8}>
           <Stack spacing={6}>
             <Box>
-            <Image src="https://github.com/sushantshekhar82/darviimages/raw/main/darvi.png" alt="Darvi"/>
+            <Image src="https://daarvipharmaceuticals.vercel.app/darvi.png" alt="Darvi"/>
             </Box>
            
             <Text fontSize={'sm'} fontWeight={'bold'}>Marketed by : DAARVI PHARMACEUTICALS

@@ -4,6 +4,7 @@ import { Box, Button, Divider, Flex, FormControl, FormLabel, Grid, GridItem, Ima
 import axios from 'axios';
 import { AppContext } from '../components/AppContextProvider';
 import { useNavigate } from 'react-router-dom';
+import config from '../config';
 
 const Checkout = () => {
     const [products, setProducts] = useState([]);
@@ -21,7 +22,7 @@ const Checkout = () => {
     const navigate=useNavigate()
     useEffect(() => {
         setLoading(true)
-        axios.get(`https://agreeable-coat-fawn.cyclic.app/api/cart/cartitems/${id}`).then((res) => {
+        axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`).then((res) => {
           setProducts(res.data.cart);
         
           setTotalprice(res.data.totalCartPrice);
@@ -30,7 +31,7 @@ const Checkout = () => {
         });
       }, []);
       useEffect(()=>{
-        axios.get(`https://agreeable-coat-fawn.cyclic.app/api/cart/cartitems/${id}`).then((res)=>{
+        axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`).then((res)=>{
         
           Length(res.data.cartCount)
         })
@@ -38,7 +39,7 @@ const Checkout = () => {
       const handlePlaceOrder=async()=>{
         if(name!=="" && address!=="" && zipcode!=="" && city!=="" && mobile!=="" ){
        console.log(name,address,zipcode,city,mobile)
-       await axios.post(`https://agreeable-coat-fawn.cyclic.app/api/order/placeorder`, { 
+       await axios.post(`${config.DEPLOYED_URL}/api/order/placeorder`, { 
         userId: localStorage.getItem("userid"),
         products:products,
         totalPrice:totalprice,

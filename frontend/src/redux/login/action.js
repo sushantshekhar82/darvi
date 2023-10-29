@@ -1,3 +1,4 @@
+import config from "../../config";
 import * as types from "./type"
 import axios from "axios"
 
@@ -5,7 +6,7 @@ export const loginuser = (email,password) =>async (dispatch) => {
   dispatch({ type: types.USER_LOADING });
   try {
     let res = await axios
-    .post(`https://agreeable-coat-fawn.cyclic.app/api/login`,{
+    .post(`${config.DEPLOYED_URL}/api/login`,{
       email,
       password
     }) 

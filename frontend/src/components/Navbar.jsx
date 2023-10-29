@@ -47,6 +47,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Badge } from '@chakra-ui/react'
 import axios from 'axios';
 import { AppContext } from './AppContextProvider';
+import config from '../config';
   export default function WithSubnavigation() {
     // const { isOpen, onToggle } = useDisclosure();
     const token=localStorage.getItem('token')
@@ -57,8 +58,9 @@ import { AppContext } from './AppContextProvider';
     const navigate=useNavigate()
     const user=localStorage.getItem('user')
     const [users,setUsers]=useState(user)
+    
     useEffect(()=>{
-      axios.get(`https://agreeable-coat-fawn.cyclic.app/api/cart/cartitems/${id}`).then((res)=>{
+      axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`).then((res)=>{
            Length(res.data.cartCount)
       })
      },[length])
@@ -107,7 +109,7 @@ import { AppContext } from './AppContextProvider';
           </Flex>
           <Flex flex={{ base: 1 }} marginRight={{base:'30px',lg:'1px'}}  justifyContent={'space-around'} alignItems={'center'}  gap={'10px'}  >
             <Flex>
-             <Image src="https://github.com/sushantshekhar82/darviimages/raw/main/darvi.png" alt="Darvi"/>
+             <Image src="https://daarvipharmaceuticals.vercel.app/darvi.png" alt="Darvi"/>
              </Flex>
             <Flex display={{ base: 'none', md: 'flex',lg:'center' }} mr={150}>
               <DesktopNav />
