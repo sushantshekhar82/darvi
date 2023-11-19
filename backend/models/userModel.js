@@ -21,9 +21,17 @@ const userSchema= mongoose.Schema({
         type:String,
         required:true
     },
+    emailVerify:{
+        type:String,
+        default:false
+    },
+    role:{
+        type:String,
+        default:"customer"
+    },
     token:{
         type:String,
-        default:''
+        required:true
     }
 })
 const userModel=mongoose.model("user",userSchema)
