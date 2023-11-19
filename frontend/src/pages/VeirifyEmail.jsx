@@ -41,7 +41,7 @@ export default function VerifyEmail() {
     
     setLoading(true)
 
-    axios.post(`${config.DEPLOYED_URL}/api/verify_email`,{
+    axios.post(`${config.LOCAL_URL}/api/verify_email`,{
       token:token,
       email:userEmail
 
@@ -55,7 +55,7 @@ export default function VerifyEmail() {
   },[])
 
   const handleCheck=()=>{
-    axios.post(`${config.DEPLOYED_URL}/api/verify_email/get_user`,{
+    axios.post(`${config.LOCAL_URL}/api/verify_email/get_user`,{
       token:token,
       email:userEmail
     }).then((res)=>{

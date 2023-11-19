@@ -41,7 +41,7 @@ const [confirmPassword,setConfirmPassword]=useState("")
   const handleReset=()=>{
     console.log(userEmail,password)
     if(password==confirmPassword){
-      axios.put(`${config.DEPLOYED_URL}/api/forget_password`,{
+      axios.put(`${config.LOCAL_URL}/api/forget_password`,{
     
         email:userEmail,
         password:password

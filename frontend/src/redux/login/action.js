@@ -6,7 +6,7 @@ export const loginuser = (email,password) =>async (dispatch) => {
   dispatch({ type: types.USER_LOADING });
   try {
     let res = await axios
-    .post(`${config.DEPLOYED_URL}/api/login`,{
+    .post(`${config.LOCAL_URL}/api/login`,{
       email,
       password
     }) 

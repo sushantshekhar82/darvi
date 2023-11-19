@@ -22,7 +22,7 @@ const Checkout = () => {
     const navigate=useNavigate()
     useEffect(() => {
         setLoading(true)
-        axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`).then((res) => {
+        axios.get(`${config.LOCAL_URL}/api/cart/cartitems/${id}`).then((res) => {
           setProducts(res.data.cart);
         
           setTotalprice(res.data.totalCartPrice);
@@ -31,7 +31,7 @@ const Checkout = () => {
         });
       }, []);
       useEffect(()=>{
-        axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`).then((res)=>{
+        axios.get(`${config.LOCAL_URL}/api/cart/cartitems/${id}`).then((res)=>{
         
           Length(res.data.cartCount)
         })
@@ -39,7 +39,7 @@ const Checkout = () => {
       const handlePlaceOrder=async()=>{
         if(name!=="" && address!=="" && zipcode!=="" && city!=="" && mobile!=="" ){
        console.log(name,address,zipcode,city,mobile)
-       await axios.post(`${config.DEPLOYED_URL}/api/order/placeorder`, { 
+       await axios.post(`${config.LOCAL_URL}/api/order/placeorder`, { 
         userId: localStorage.getItem("userid"),
         products:products,
         totalPrice:totalprice,

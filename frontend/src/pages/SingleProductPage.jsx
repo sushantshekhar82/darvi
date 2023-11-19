@@ -45,7 +45,7 @@ const SingleProductPage = () => {
   const {length,Length}=useContext(AppContext)
     const id=localStorage.getItem('userid')
     useEffect(()=>{
-      axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`).then((res)=>{
+      axios.get(`${config.LOCAL_URL}/api/cart/cartitems/${id}`).then((res)=>{
       
         Length(res.data.cartCount)
       })
@@ -54,7 +54,7 @@ const SingleProductPage = () => {
     setLoading(true)
     
 
-    axios.get(`${config.DEPLOYED_URL}/api/product/allproducts/${param.id}`).then((res)=>{
+    axios.get(`${config.LOCAL_URL}/api/product/allproducts/${param.id}`).then((res)=>{
       setProducts(res.data)
       if (res.data) {
         setSelectedImage(res.data.image2url);
@@ -74,7 +74,7 @@ const SingleProductPage = () => {
   ];
 const handleCart=async()=>{
   if(token){
-    await axios.post(`${config.DEPLOYED_URL}/api/cart/cartitems/addcart`, { 
+    await axios.post(`${config.LOCAL_URL}/api/cart/cartitems/addcart`, { 
       productId:products._id,
       productname:products.productname,
       category:products.category,

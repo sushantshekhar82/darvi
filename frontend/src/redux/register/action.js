@@ -6,7 +6,7 @@ export const postuser = (name,email,mobile,password) =>async (dispatch) => {
   dispatch({ type: types.USER_LOADING });
   try {
     let res = await axios
-    .post(`${config.DEPLOYED_URL}/api/register`,{
+    .post(`${config.LOCAL_URL}/api/register`,{
       name,email,mobile,password
     }) 
     dispatch({ type: types.USER_SUCCESS, payload:(res.data.message)})

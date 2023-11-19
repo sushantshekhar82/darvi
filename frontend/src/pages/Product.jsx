@@ -41,7 +41,7 @@ const Product = () => {
     
     setLoading(true)
 
-    axios.get(`${config.DEPLOYED_URL}/api/product/allproducts`).then((res)=>{
+    axios.get(`${config.LOCAL_URL}/api/product/allproducts`).then((res)=>{
      
       setProducts(res.data)
      
