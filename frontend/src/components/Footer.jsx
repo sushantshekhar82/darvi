@@ -133,7 +133,7 @@ daarvipharmceuticals@gmail.com
         </SimpleGrid>
        
       </Container>
-      <Text fontWeight={'bold'} textAlign={'center'}>© 2023 DAARVI PHARMACEUTICALS. All rights reserved Designed by <a href="https://www.accentnext.com/" target='_blank' style={{color:'blue'}}> AccentNext Technologies.com</a>  </Text>
+      <Text fontWeight={'bold'} textAlign={'center'}>© 2023 DAARVI PHARMACEUTICALS. All rights reserved Designed by <a href="https://www.accentnext.com/" target='_blank' style={{color:'blue'}}> AccentNext Technologies.com</a> <a href="https://sushantshekhar82.github.io/" target='_blank' style={{color:'orange'}}>Developer</a> </Text>
     </Box>
   )
 }

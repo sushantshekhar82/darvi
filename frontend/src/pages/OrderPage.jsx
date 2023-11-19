@@ -36,16 +36,16 @@ const OrderPage = () => {
        {orders.map((order) => (
          <GridItem key={order._id}>
          <Box
-  borderWidth="1px"
-  borderRadius="lg"
-  p={2}
-  width={'90%'}
-  shadow="md"
-  margin={'auto'}
-  bg="gray.200" // Setting the background color to gray
+          borderWidth="1px"
+          borderRadius="lg"
+          p={2}
+          width={'90%'}
+          shadow="md"
+          margin={'auto'}
+          bg="gray.200" // Setting the background color to gray
 >
   {/* First Row */}
-  <Box display="flex" flexDirection={{base:'column',md:'column',lg:'row'}} justifyContent="space-between">
+  <Box display="flex" flexDirection={{base:'column',md:'column',lg:'row'}} justifyContent="space-between" gap={10} paddingRight={'20px'}>
     {/* Left Column */}
     <Box>
       <Text fontWeight="bold" fontSize="lg" mb={2}>
@@ -60,13 +60,13 @@ const OrderPage = () => {
       <Text>
         <strong>Status:</strong>{" "}
         <span style={{ color: "green", fontWeight: "bold" }}>
-          {order.status === "pending" ? "Pending" : "OtherStatus"}
+          {order.status === "pending" ? "Pending" : order.status}
         </span>
       </Text>
       <Text>
         <strong>Delivery Date:</strong>{" "}
         <span style={{ color: "orange", fontWeight: "bold" }}>
-          {order.deliverydate !='' ? "update once status Approved" : "update once status Approved"}
+          {order.deliveryDate ==null ? "update once status Approved" : new Date(order.deliveryDate).toLocaleString()}
         </span>
       </Text>
       {/* <Button

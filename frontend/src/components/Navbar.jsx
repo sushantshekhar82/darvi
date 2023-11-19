@@ -69,6 +69,7 @@ import config from '../config';
       localStorage.removeItem("token")
       localStorage.removeItem("user")
       localStorage.removeItem("userid")
+      localStorage.removeItem("role")
       window.location.reload()
       navigate("/")
     };

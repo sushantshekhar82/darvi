@@ -13,6 +13,11 @@ import PrivateRoute from './PrivateRoute'
 import VerifyEmail from '../pages/VeirifyEmail'
 import ForgetPasswordMail from '../pages/ForgetPasswordMail'
 import ResetPassword from '../pages/ResetPassword'
+import Admin from '../pages/Admin'
+import AddNewAdmin from '../pages/AddNewAdmin'
+import OrdersAdmin from '../pages/OrdersAdmin'
+import UsersAdmin from '../pages/UsersAdmin'
+import PrivateRouteAdmin from './PrivateRouteAdmin'
 const AllRoutes = () => {
   return (
     <Routes>
@@ -27,7 +32,11 @@ const AllRoutes = () => {
         <Route path='/cart_page' element={<PrivateRoute><CartPage/></PrivateRoute>}/>
         <Route path='/order page' element={<PrivateRoute><OrderPage/></PrivateRoute>}/>
         <Route path='/checkout'   element={<PrivateRoute><Checkout/></PrivateRoute>}/>
-        <Route path='/success' element={<PrivateRoute><Success/></PrivateRoute>}/>
+        <Route path='/success' element={<PrivateRoute><Success/></PrivateRoute>}/> 
+        <Route path='/admin' element={<PrivateRouteAdmin><Admin/></PrivateRouteAdmin>}/>
+        <Route path="/admin/addnew" element={<PrivateRouteAdmin><AddNewAdmin/></PrivateRouteAdmin>}/>
+        <Route path="/admin/orders" element={<PrivateRouteAdmin><OrdersAdmin/></PrivateRouteAdmin>}/>
+        <Route path="/admin/users" element={<PrivateRouteAdmin><UsersAdmin/></PrivateRouteAdmin>}/>
     </Routes>
   )
 }

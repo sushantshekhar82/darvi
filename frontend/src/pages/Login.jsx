@@ -48,16 +48,28 @@ export default function Login() {
             duration: 3000,
             isClosable: true,
          });
-        }else{
+        }
+        else if(res.msg=="Please verify you email"){
+          toast({
+            title: "Email Not Verified" ,
+        
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+         });
+        }
+        else{
           toast({
             title: "Login Successful" ,
              status: "success",
             duration: 3000,
             isClosable: true,
          });
+         console.log(res)
          localStorage.setItem("token",res.token)
          localStorage.setItem("user",res.data.name)
          localStorage.setItem("userid",res.data._id)
+         localStorage.setItem("role",res.data.role)
         navigate("/products_page")
         }
       })

@@ -36,9 +36,9 @@ export default function VerifyEmail() {
   const toast = useToast();
   const [text,setText]=useState("")
   const [nostatus,setNostatus]=useState(true)
-  console.log(token)
+  console.log(token,userEmail)
   useEffect(()=>{
-    
+   if(token!==null || userEmail!==null){
     setLoading(true)
 
     axios.post(`${config.LOCAL_URL}/api/verify_email`,{
@@ -46,12 +46,15 @@ export default function VerifyEmail() {
       email:userEmail
 
     }).then((res)=>{
+      console.log("here1",res)
       if(res.data.data.emailVerify==="true"){
         setStatus(true)
       }
     }).finally((res)=>{
       setLoading(false)
     })
+   } 
+  
   },[])
 
   const handleCheck=()=>{
@@ -59,11 +62,11 @@ export default function VerifyEmail() {
       token:token,
       email:userEmail
     }).then((res)=>{
-      console.log(res)
+      console.log("here2")
       if(res.data.data.emailVerify==="true"){
         setStatus(true)
       }else{
-        setNostatus(false)
+        setStatus(false)
       }
      
      })
@@ -73,7 +76,7 @@ export default function VerifyEmail() {
   }
 
  
-console.log(loading)
+console.log(status)
 
   return (
 <Box>
