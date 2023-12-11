@@ -60,7 +60,7 @@ const SocialButton = ({
     </chakra.button>
   )
 }
-
+ 
 const ListHeader = ({ children }) => {
   return (
     <Text fontWeight={'500'} fontSize={'lg'} mb={2}>
@@ -88,7 +88,7 @@ export default function Footer() {
 Khata No. 183 Jigani Main Road Anekal (TQ),
 Bangalore 560105
 daarvipharmceuticals@gmail.com
-+91 9606882888 +91 9513323996
++919606882888 
 </Text>
 
 

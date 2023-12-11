@@ -187,6 +187,8 @@ const AddNewAdmin = () => {
   const [shortdescription,setShortDescription]=useState("")
   const [longdescription,setLongDescription]=useState("")
   const [rating,setRating]=useState(0)
+  const [dosage,setDosage]=useState("")
+  const [warning,setWarning]=useState("")
   const [image1url,setImage1url]=useState("")
   const [image2url,setImage2url]=useState("")
   const [image3url,setImage3url]=useState("")
@@ -195,13 +197,15 @@ const AddNewAdmin = () => {
   const token = localStorage.getItem("token");
   const handleAddProduct=()=>{
     
-     if(productname!=="" && cost!=="" && shortdescription!=="" && longdescription!==""){
+     if(productname!=="" && cost!=="" && shortdescription!=="" && longdescription!=="" && dosage!=="" && warning!==""){
         const productData = {
             productname,
             price:cost,
             shortdescription,
             longdescription,
             rating,
+            dosage,
+            warning,
             image1url,
             image2url,
             image3url,
@@ -269,17 +273,22 @@ const AddNewAdmin = () => {
            <Text fontSize={'md'} fontWeight={'bold'}>Price</Text>
            <Input marginTop={'10px'} type='number' value={cost} onChange={(e)=>setCost(e.target.value)}  placeholder='Cost' size='lg' />
            <Text fontSize={'md'} fontWeight={'bold'}>Short Description</Text>
-           <Textarea marginTop={'10px'} type='number' value={shortdescription} onChange={(e)=>setShortDescription(e.target.value)}  placeholder='Short Description' height={'auto'} size='lg' />
+           <Textarea marginTop={'10px'} type='text' value={shortdescription} onChange={(e)=>setShortDescription(e.target.value)}  placeholder='Short Description' height={'auto'} size='lg' />
            <Text fontSize={'md'} fontWeight={'bold'}>Long Description</Text>
-           <Textarea marginTop={'10px'} type='number' value={longdescription} onChange={(e)=>setLongDescription(e.target.value)}  placeholder='Long Description' height={'auto'} size='lg' />
+           <Textarea marginTop={'10px'} type='text' value={longdescription} onChange={(e)=>setLongDescription(e.target.value)}  placeholder='Long Description' height={'auto'} size='lg' />
+           <Text fontSize={'md'} fontWeight={'bold'}>Dosage</Text>
+           <Textarea marginTop={'10px'} type='text' value={dosage} onChange={(e)=>setDosage(e.target.value)}  placeholder='Short Description' height={'auto'} size='lg' />
+           <Text fontSize={'md'} fontWeight={'bold'}>Warning</Text>
+           <Textarea marginTop={'10px'} type='text' value={warning} onChange={(e)=>setWarning(e.target.value)}  placeholder='Short Description' height={'auto'} size='lg' />
+           
            <Text fontSize={'md'} fontWeight={'bold'}>Image Url </Text>
-           <Input marginTop={'10px'} type='number' value={image1url} onChange={(e)=>setImage1url(e.target.value)}  placeholder='Enter image url ' size='lg' />
+           <Input marginTop={'10px'} type='text' value={image1url} onChange={(e)=>setImage1url(e.target.value)}  placeholder='Enter image url ' size='lg' />
            <Text fontSize={'md'} fontWeight={'bold'}>Image Url </Text>
-           <Input marginTop={'10px'} type='number' value={image2url} onChange={(e)=>setImage2url(e.target.value)}  placeholder='Enter image url' size='lg' />
+           <Input marginTop={'10px'} type='text' value={image2url} onChange={(e)=>setImage2url(e.target.value)}  placeholder='Enter image url' size='lg' />
            <Text fontSize={'md'} fontWeight={'bold'}>Image Url </Text>
-           <Input marginTop={'10px'} type='number' value={image3url} onChange={(e)=>setImage3url(e.target.value)}  placeholder='Enter image url' size='lg' />
+           <Input marginTop={'10px'} type='text' value={image3url} onChange={(e)=>setImage3url(e.target.value)}  placeholder='Enter image url' size='lg' />
            <Text fontSize={'md'} fontWeight={'bold'}>Image Url </Text>
-           <Input marginTop={'10px'} type='number' value={image4url} onChange={(e)=>setImage4url(e.target.value)}  placeholder='Enter image url' size='lg' />
+           <Input marginTop={'10px'} type='text' value={image4url} onChange={(e)=>setImage4url(e.target.value)}  placeholder='Enter image url' size='lg' />
            
            <Button  marginTop={'20px'} bg={'pink.600'} color={'white'} onClick={handleAddProduct} >Add Product</Button>
                

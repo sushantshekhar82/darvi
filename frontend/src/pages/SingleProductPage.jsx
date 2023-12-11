@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem, Image,Text,Button, Spinner, useToast, Input } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, Image,Text,Button, Spinner, useToast, Input, Divider, Stack, StackDivider, useColorModeValue } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
@@ -7,6 +7,7 @@ import {BiMessageDetail} from 'react-icons/bi'
 import WithSubnavigation from '../components/Navbar';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { AppContext } from '../components/AppContextProvider';
+import { MdLocalShipping } from "react-icons/md";
 import Footer from '../components/Footer';
 import config from '../config';
 function Star({ rating }) {
@@ -176,9 +177,23 @@ const handleCart=async()=>{
           <Text marginTop={'-10px'} as={'h4'} fontSize={'xl'} fontWeight={'bold'} paddingLeft={'10px'} >{products.category}</Text>
          <Flex alignItems={'center'}> <BiMessageDetail/><Text>20 reviews</Text></Flex>
          </Flex>
-         <Text as={'h2'} width={'90%'} paddingLeft={'10px'} fontSize={'2xl'}>{products.shortdescription}</Text>
+         <Text as={'h2'} width={'90%'} paddingLeft={'10px'} fontSize={'2xl'} color={'gray.600'} fontWeight={'bold'}>{products.shortdescription}</Text>
           <Text as={'h2'} fontSize={'3xl'} fontWeight={'bold'} paddingLeft={'10px'}>₹{products.price}</Text>
          {/* <Text as={'h2'} width={'90%'} paddingLeft={'10px'} fontSize={'2xl'}>{products.longdescription}</Text> */}
+        <Divider  paddingLeft={'10px'} marginBottom={'5px'} />
+         <Flex alignItems={'center'}gap={1}  paddingLeft={'10px'}>
+            <MdLocalShipping />
+            <Text>2-3 business days delivery(COD Available)</Text>
+            </Flex>
+            <Stack  divider={
+              <StackDivider />
+            }>
+          
+              <Image src='https://daarvipharmaceuticals.vercel.app/payments.webp' alt='we accept all payments' paddingLeft={'10px'} width={'300px'} height={'80px'}/>
+           
+          </Stack>
+ 
+            <Divider  paddingLeft={'10px'} marginTop={'5px'}/>
         <Box display={'flex'} justifyContent={"flex-start"} alignItems={'center'} gap={"3px"} paddingLeft={'10px'}>
           <Button marginTop={'10px'} marginBottom={'10px'}  onClick={handleDecrease}   width={'20px'} fontSize={'30px'} bgColor={'#8dc896'} fontWeight={'bold'} color={'white'} justifyContent={'center'} alignItems={'center'}>-</Button>
           <Box mx={2}>
@@ -199,11 +214,41 @@ const handleCart=async()=>{
 }<Tabs variant='unstyled' paddingLeft={'30px'} marginTop={'30px'}>
   <TabList>
     <Tab _selected={{ color: 'white', bg: '#5cac60' }} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} borderRadius={'5px'}>Description</Tab>
+    <Tab _selected={{ color: 'white', bg: '#5cac60' }} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} borderRadius={'5px'}>FAQ</Tab>
+    <Tab _selected={{ color: 'white', bg: '#5cac60' }} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} borderRadius={'5px'}>Reviews</Tab>
+   
     </TabList>
   <TabPanels>
     <TabPanel>
      
     <Text as={'h2'} width={'90%'}  fontSize={'xl'}>{products.longdescription}</Text>
+    <Text as={'h2'} width={'90%'}  fontSize={'md'} fontWeight={'bold'} marginTop={5}>Shake Well before use. Store in dry and cool place.</Text>
+
+    <Text as={'h2'} width={'90%'}  fontSize={'xl'} fontWeight={'bold'} marginTop={5}>Direction for use {products.productname}:</Text>
+    <Text as={'h2'} width={'90%'}  fontSize={'xl'} marginTop={2}>
+Dosage:{products.dosage}</Text>
+<Text as={'h2'} width={'90%'}  fontSize={'xl'} fontWeight={'bold'} marginTop={5}>Warning:</Text>
+<Text as={'h2'} width={'90%'}  fontSize={'xl'} marginTop={2}>
+{products.warning}</Text>
+<Grid gridTemplateColumns={{base:'1fr',md:'1fr 1fr',lg:'1fr 1fr'}} gap={5} marginTop={4}>
+  <GridItem>
+    <Image src='https://daarvipharmaceuticals.vercel.app/sauf.jpg' alt='sauf image darvi'/>
+    <Text as={'h2'} width={'90%'}  fontSize={'md'}  marginTop={2}>Saunf seed extracts possess strong carminative properties that 
+help to relieve belching and gas. The antispasmodic action works 
+to ease abdominal cramps caused due to indigestion. While it also 
+controls gastric secretions that help to reduce acidic and sour 
+taste in the mouth.</Text>
+    
+  </GridItem>
+  <GridItem>
+  <Image src='https://daarvipharmaceuticals.vercel.app/mulethi.jpg' alt='sauf image darvi'/>
+    <Text as={'h2'} width={'90%'}  fontSize={'md'}  marginTop={2}>Mulethi is helpful in keeping your liver at its optimal best. A 
+healthy liver will prevent gas or acidity formation in the stomach. 
+Also, the healthy liver helps in better food absorption</Text>
+    
+  </GridItem>
+</Grid>
+
     </TabPanel>
    
   </TabPanels>

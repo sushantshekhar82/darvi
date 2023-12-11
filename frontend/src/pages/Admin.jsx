@@ -199,6 +199,8 @@ const Admin = () => {
   const [price,setPrice]=useState(0)
   const [shortdescription,setShortDescription]=useState("")
   const [longdescription,setLongDescription]=useState("")
+  const [dosage,setDosage]=useState("")
+  const [warning,setWarning]=useState("")
   const toast = useToast();
   const [count,setCount]=useState(0)
   const token=localStorage.getItem("token")
@@ -227,6 +229,8 @@ const Admin = () => {
         setPrice(res.price)
         setShortDescription(res.shortdescription)
         setLongDescription(res.longdescription)
+        setDosage(res.dosage)
+        setWarning(res.warning)
       })
   },[activeid])
 
@@ -236,7 +240,9 @@ const Admin = () => {
       productName,
       price,
       shortdescription,
-      longdescription
+      longdescription,
+      dosage,
+      warning
     }
 
     fetch(`${config.LOCAL_URL}/api/product/edit/${activeid}`,  {
@@ -356,9 +362,14 @@ const Admin = () => {
            <Text fontSize={'md'} fontWeight={'bold'}>Price</Text>
            <Input marginTop={'10px'} type='number' value={price} onChange={(e)=>setPrice(e.target.value)}  placeholder='Cost' size='lg' />
            <Text fontSize={'md'} fontWeight={'bold'}>Short Description</Text>
-           <Textarea marginTop={'10px'} type='number' value={shortdescription} onChange={(e)=>setShortDescription(e.target.value)}  placeholder='Short Description' height={'auto'} size='lg' />
+           <Textarea marginTop={'10px'} type='text' value={shortdescription} onChange={(e)=>setShortDescription(e.target.value)}  placeholder='Short Description' height={'auto'} size='lg' />
            <Text fontSize={'md'} fontWeight={'bold'}>Long Description</Text>
-           <Textarea marginTop={'10px'} type='number' value={longdescription} onChange={(e)=>setLongDescription(e.target.value)}  placeholder='Long Description' height={'auto'} size='lg' />
+           <Textarea marginTop={'10px'} type='text' value={longdescription} onChange={(e)=>setLongDescription(e.target.value)}  placeholder='Long Description' height={'auto'} size='lg' />
+           <Text fontSize={'md'} fontWeight={'bold'}>Dosage</Text>
+           <Textarea marginTop={'10px'} type='text' value={dosage} onChange={(e)=>setDosage(e.target.value)}  placeholder='Short Description' height={'auto'} size='lg' />
+           <Text fontSize={'md'} fontWeight={'bold'}>Warning</Text>
+           <Textarea marginTop={'10px'} type='text' value={warning} onChange={(e)=>setWarning(e.target.value)}  placeholder='Short Description' height={'auto'} size='lg' />
+            
            <Button  marginTop={'20px'} bg={'pink.600'} color={'white'} onClick={handleUpdate} >Update Product</Button>
               
           </Box>
