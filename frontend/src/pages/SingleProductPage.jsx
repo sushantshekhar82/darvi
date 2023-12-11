@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem, Image,Text,Button, Spinner, useToast } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, Image,Text,Button, Spinner, useToast, Input } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
@@ -42,6 +42,7 @@ const SingleProductPage = () => {
   const toast = useToast();
   const navigate=useNavigate()
   const[count,setCount]=useState(0)
+  const [quantity, setQuantity] = useState(1);
   const {length,Length}=useContext(AppContext)
     const id=localStorage.getItem('userid')
     useEffect(()=>{
@@ -64,7 +65,16 @@ const SingleProductPage = () => {
     })
    
   },[])
+  const handleDecrease = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
+  const handleIncrease = () => {
+    setQuantity(quantity + 1);
+   
+  };
   const thumbnails = [
     
     `${products.image2url}`,
@@ -81,7 +91,7 @@ const handleCart=async()=>{
       price:products.price,
       rating:products.rating,
       image1url:products.image1url,
-      productquantity:products.productquantity
+      productquantity:quantity
      }, {
     headers: {
       Authorization: `${localStorage.getItem("token")}`
@@ -168,9 +178,17 @@ const handleCart=async()=>{
          </Flex>
          <Text as={'h2'} width={'90%'} paddingLeft={'10px'} fontSize={'2xl'}>{products.shortdescription}</Text>
           <Text as={'h2'} fontSize={'3xl'} fontWeight={'bold'} paddingLeft={'10px'}>₹{products.price}</Text>
-          <Text as={'h2'} width={'90%'} paddingLeft={'10px'} fontSize={'2xl'}>{products.longdescription}</Text>
+         {/* <Text as={'h2'} width={'90%'} paddingLeft={'10px'} fontSize={'2xl'}>{products.longdescription}</Text> */}
+        <Box display={'flex'} justifyContent={"flex-start"} alignItems={'center'} gap={"3px"} paddingLeft={'10px'}>
+          <Button marginTop={'10px'} marginBottom={'10px'}  onClick={handleDecrease}   width={'20px'} fontSize={'30px'} bgColor={'#8dc896'} fontWeight={'bold'} color={'white'} justifyContent={'center'} alignItems={'center'}>-</Button>
+          <Box mx={2}>
+        <Text fontSize="20px" fontWeight={'bold'}>{quantity}</Text>
+      </Box>
+          <Button marginTop={'10px'} marginBottom={'10px'}  onClick={handleIncrease}  width={'20px'} fontSize={'30px'} bgColor={'#8dc896'} fontWeight={'bold'} color={'white'} justifyContent={'center'} alignItems={'center'}>+</Button>
+       
+        </Box>
          <Flex justifyContent={'space-between'}>
-          <Box marginTop={'10px'} paddingLeft={'10px'}><Button bgGradient="linear(to-r,red.400, red.300)"  _hover={
+          <Box marginTop={'10px'} paddingLeft={'10px'}><Button bgColor={'#5cac60'}  _hover={
           {
            cursor:'pointer'
           }}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} height={'50px'}  borderRadius={'10px'} onClick={handleCart}>Add to Cart</Button></Box>

@@ -113,9 +113,16 @@ const handleCheckout=()=>{
              <GridItem ><Image src={e.image1url} alt="darvi" margin={'auto'} width={'50%'}/></GridItem>
              <GridItem >
              <Box >
-                   <Text fontSize={'2xl'} fontWeight={'bold'}>{e.productname}</Text>
+              <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+               <Text fontSize={'2xl'} fontWeight={'bold'}>{e.productname}</Text>
+              <Text fontSize={'md'} fontWeight={'bold'}>Qty: {e.productquantity}</Text>
+                   
+              </Box>
+                   
                    <Text fontSize={'sm'}>{e.category}</Text>
                    <Text fontSize={'xl'} fontWeight={'bold'} >₹{e.price}</Text>
+                   
+                  
                   
                  
                  </Box>

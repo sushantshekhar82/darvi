@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, GridItem, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, GridItem, Image, Spinner, Text } from "@chakra-ui/react";
 import "../App.css";
 import WithSubnavigation from "../components/Navbar";
 import { Link } from "react-router-dom";
@@ -9,6 +9,8 @@ import Footer from "../components/Footer";
 import ImageFader from "../components/ImageFader";
 import { BiMessageDetail } from "react-icons/bi";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import CardCarousel from "../components/CardCarousel";
+import config from "../config";
 function Star({ rating }) {
   return (
     <Box display="flex" alignItems="center">
@@ -34,22 +36,21 @@ function Star({ rating }) {
   );
 }
 const Home = () => {
-  // const [products,setProducts]=useState([]);
-  // const [loading,setLoading]=useState(false)
+  const [products,setProducts]=useState([]);
+  const [loading,setLoading]=useState(false)
 
-  // useEffect(()=>{
+  useEffect(()=>{
+    
+    setLoading(true)
 
-  //   setLoading(true)
-
-  //   axios.get("https://agreeable-coat-fawn.cyclic.app/api/product/allproducts").then((res)=>{
-
-  //     setProducts(res.data)
-
-  //   }).finally((res)=>{
-  //     setLoading(false)
-  //   })
-  // },[])
-  // console.log(products[0])
+    axios.get(`${config.LOCAL_URL}/api/product/allproducts`).then((res)=>{
+     
+      setProducts(res.data)
+     
+    }).finally((res)=>{
+      setLoading(false)
+    })
+  },[])
   const imageUrls = ['./womenstomach.webp', './womendaarvi.webp']; // Replace with your image URLs
 
   return (
@@ -115,7 +116,7 @@ const Home = () => {
       >
         Our Products
       </Text>
-      <Grid
+      {/* <Grid
         gridTemplateColumns={{ base: "1fr", lg: "1fr 1fr" }}
         justifyContent={"center"}
         alignItems={"center"}
@@ -156,17 +157,7 @@ const Home = () => {
 
               <Box marginTop={"10px"} paddingLeft={"10px"}>
                 <Link to="/products_page">
-                <Button
-                  backgroundColor={"#345b22"}
-                  fontSize={"xl"}
-                  color={"white"}
-                  fontWeight={"bold"}
-                  width={"100%"}
-                  height={"40px"}
-                  borderRadius={"10px"}
-                >
-                  Check Now
-                </Button>
+                <Text fontWeight={'bold'} fontSize={'lg'} textDecoration={'underline'}>view more</Text>
                 </Link>
               </Box>
             </GridItem>
@@ -206,24 +197,51 @@ const Home = () => {
 
               <Box marginTop={"10px"} paddingLeft={"10px"}>
               <Link to="/products_page">
-                <Button
-                  backgroundColor={"#345b22"}
-                  fontSize={"xl"}
-                  color={"white"}
-                  fontWeight={"bold"}
-                  width={"100%"}
-                  height={"40px"}
-                  borderRadius={"10px"}
-                >
-                  Check Now
-                </Button>
+              <Text fontWeight={'bold'} fontSize={'lg'} textDecoration={'underline'}>view more</Text>
+               
                 </Link>
               </Box>
             </GridItem>
           </Grid>
         </GridItem>
-      </Grid>
-      <TestimonialCarousel />
+      </Grid> */}
+       <Box>
+      <Grid gridTemplateColumns={{base:'1fr',lg:'1fr 1fr' }}   justifyContent={"center"}
+        alignItems={"center"}
+        gap={{ base: "5px", lg: "10px" }}>
+        {loading?<Box display={'flex'} justifyContent={{base:'center',lg:'flex-end'}} marginTop={'10px'}  width={'100%'}>
+          <Spinner
+  thickness='5px'
+  speed='0.65s'
+  emptyColor='gray.200'
+  color='green.500'
+  size='xl'
+  
+/></Box>
+        : products.map((e)=>(
+      <Box width={{base:'90%',lg:'350px'}} height={'auto'} margin={'auto'} key={e._id}>
+         <Link to={`/products_page/${e._id}`}>
+          <Image  width={"60%"} src={e.image1url} transform="rotate(-2deg)"/>
+          <Text as={'h1'} fontSize={{base:'2xl',lg:'3xl'}}  fontWeight={'bold'} paddingLeft={'10px'}>{e.productname}</Text>
+          <Text marginTop={'-10px'} as={'h4'} fontSize={'xl'} fontWeight={'bold'} paddingLeft={'10px'}>{e.category}</Text>
+          <Text as={'h2'} fontSize={'3xl'} fontWeight={'bold'} paddingLeft={'10px'}>₹{e.price}</Text>
+          <Box paddingLeft={'10px'} display={'flex'} justifyContent={'space-between'} alignItems={'center'}><Star rating={e.rating} /><Text fontWeight={'bold'} textDecoration={'underline'}>view more</Text></Box>
+         
+          </Link>
+       </Box>
+    
+          ))
+        }
+       
+      
+
+       </Grid>
+    
+     </Box>
+      {/* <TestimonialCarousel /> */}
+      <Text textAlign={'center'} fontSize={{base:'30px',lg:'40px'}}  fontWeight={'bold'}>Our Patients Says</Text>
+     
+      <CardCarousel/>
       <Box display={{ base: "none", lg: "block" }} marginTop={"25px"} marginBottom={'20px'}>
         <Image
           src="./features1.webp"
