@@ -45,7 +45,27 @@ const SingleProductPage = () => {
   const[count,setCount]=useState(0)
   const [quantity, setQuantity] = useState(1);
   const {length,Length}=useContext(AppContext)
-    const id=localStorage.getItem('userid')
+  const id=localStorage.getItem('userid')
+  const [filled, setFilled] = useState(false);
+  const [selectedCount, setSelectedCount] = useState(0);
+  const [hoverCount, setHoverCount] = useState(0);
+
+  const handleStarClick = (starCount) => {
+    setSelectedCount(starCount);
+  };
+
+  const handleStarHover = (starCount) => {
+    if (selectedCount === 0) {
+      setHoverCount(starCount);
+    }
+  };
+
+  const resetHoverCount = () => {
+    if (selectedCount === 0) {
+      setHoverCount(0);
+    }
+  };
+    console.log(hoverCount)
     useEffect(()=>{
       axios.get(`${config.LOCAL_URL}/api/cart/cartitems/${id}`).then((res)=>{
       
@@ -195,24 +215,25 @@ const handleCart=async()=>{
  
             <Divider  paddingLeft={'10px'} marginTop={'5px'}/>
         <Box display={'flex'} justifyContent={"flex-start"} alignItems={'center'} gap={"3px"} paddingLeft={'10px'}>
-          <Button marginTop={'10px'} marginBottom={'10px'}  onClick={handleDecrease}   width={'20px'} fontSize={'30px'} bgColor={'#8dc896'} fontWeight={'bold'} color={'white'} justifyContent={'center'} alignItems={'center'}>-</Button>
+          <Button marginTop={'10px'} marginBottom={'10px'}  onClick={handleDecrease}   width={{base:'50px',lg:'20px'}} fontSize={'30px'} bgColor={'#8dc896'} fontWeight={'bold'} color={'white'} justifyContent={'center'} alignItems={'center'}>-</Button>
           <Box mx={2}>
-        <Text fontSize="20px" fontWeight={'bold'}>{quantity}</Text>
+        <Text fontSize={{base:'30px',lg:'20px'}} fontWeight={'bold'}>{quantity}</Text>
       </Box>
-          <Button marginTop={'10px'} marginBottom={'10px'}  onClick={handleIncrease}  width={'20px'} fontSize={'30px'} bgColor={'#8dc896'} fontWeight={'bold'} color={'white'} justifyContent={'center'} alignItems={'center'}>+</Button>
+          <Button marginTop={'10px'} marginBottom={'10px'}  onClick={handleIncrease}   width={{base:'50px',lg:'20px'}} fontSize={'30px'} bgColor={'#8dc896'} fontWeight={'bold'} color={'white'} justifyContent={'center'} alignItems={'center'}>+</Button>
        
-        </Box>
+        </Box> 
          <Flex justifyContent={'space-between'}>
           <Box marginTop={'10px'} paddingLeft={'10px'}><Button bgColor={'#5cac60'}  _hover={
           {
            cursor:'pointer'
-          }}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} height={'50px'}  borderRadius={'10px'} onClick={handleCart}>Add to Cart</Button></Box>
+          }}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={{base:'350px',md:'200px',lg:'200px'}} height={'50px'}  borderRadius={'10px'} onClick={handleCart}>Add to Cart</Button></Box>
          
           </Flex>
          </GridItem>
       </Grid>
-}<Tabs variant='unstyled' paddingLeft={'30px'} marginTop={'30px'}>
-  <TabList>
+}
+<Tabs  marginTop={'30px'} width={'100%'} >
+  <TabList width={'100%'}>
     <Tab _selected={{ color: 'white', bg: '#5cac60' }} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} borderRadius={'5px'}>Description</Tab>
     <Tab _selected={{ color: 'white', bg: '#5cac60' }} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} borderRadius={'5px'}>FAQ</Tab>
     <Tab _selected={{ color: 'white', bg: '#5cac60' }} fontWeight={'bold'} width={{base:'150px',lg:'200px'}} borderRadius={'5px'}>Reviews</Tab>
@@ -248,6 +269,41 @@ Also, the healthy liver helps in better food absorption</Text>
     
   </GridItem>
 </Grid>
+
+    </TabPanel>
+    <TabPanel>
+      hello
+    </TabPanel>
+    <TabPanel>
+    <Box display={'flex'}>
+      {[...Array(5)].map((_, index) => (
+        <Text
+          key={index}
+          onMouseEnter={() => handleStarHover(index + 1)}
+          onMouseLeave={resetHoverCount}
+          onClick={() => handleStarClick(index + 1)}
+          style={{
+            fontSize: '2rem',
+            cursor: 'pointer',
+           
+           
+            color:
+              selectedCount > 0
+                ? index < selectedCount
+                  ? 'gold'
+                  : 'gray'
+                : index < hoverCount
+                ? 'gold'
+                : 'gray'
+          }}
+        >
+          &#9733;
+        </Text>
+      ))}
+      <Box>
+        <Text>Selected Stars: {selectedCount > 0 ? selectedCount : hoverCount}</Text>
+      </Box>
+    </Box>
 
     </TabPanel>
    

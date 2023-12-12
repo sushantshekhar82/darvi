@@ -49,7 +49,7 @@ const Product = () => {
       setLoading(false)
     })
   },[])
-console.log(loading)
+
   return (
     <Box>
         <WithSubnavigation/>

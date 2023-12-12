@@ -183,10 +183,11 @@ const AddNewAdmin = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const[productname,setProductName]=useState("")
   const[cost,setCost]=useState(0)
+  const[rating,setRating]=useState(0)
   const[quantity,setQuantity]=useState("")
   const [shortdescription,setShortDescription]=useState("")
   const [longdescription,setLongDescription]=useState("")
-  const [rating,setRating]=useState(0)
+  
   const [dosage,setDosage]=useState("")
   const [warning,setWarning]=useState("")
   const [image1url,setImage1url]=useState("")
@@ -280,6 +281,8 @@ const AddNewAdmin = () => {
            <Textarea marginTop={'10px'} type='text' value={dosage} onChange={(e)=>setDosage(e.target.value)}  placeholder='Short Description' height={'auto'} size='lg' />
            <Text fontSize={'md'} fontWeight={'bold'}>Warning</Text>
            <Textarea marginTop={'10px'} type='text' value={warning} onChange={(e)=>setWarning(e.target.value)}  placeholder='Short Description' height={'auto'} size='lg' />
+           <Text fontSize={'md'} fontWeight={'bold'}>Overall rating</Text>
+           <Input marginTop={'10px'} type='number' value={rating} onChange={(e)=>setRating(e.target.value)}  placeholder='Cost' size='lg' />
            
            <Text fontSize={'md'} fontWeight={'bold'}>Image Url </Text>
            <Input marginTop={'10px'} type='text' value={image1url} onChange={(e)=>setImage1url(e.target.value)}  placeholder='Enter image url ' size='lg' />

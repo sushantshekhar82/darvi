@@ -366,9 +366,9 @@ const Admin = () => {
            <Text fontSize={'md'} fontWeight={'bold'}>Long Description</Text>
            <Textarea marginTop={'10px'} type='text' value={longdescription} onChange={(e)=>setLongDescription(e.target.value)}  placeholder='Long Description' height={'auto'} size='lg' />
            <Text fontSize={'md'} fontWeight={'bold'}>Dosage</Text>
-           <Textarea marginTop={'10px'} type='text' value={dosage} onChange={(e)=>setDosage(e.target.value)}  placeholder='Short Description' height={'auto'} size='lg' />
+           <Input marginTop={'10px'} type='text' value={dosage} onChange={(e)=>setDosage(e.target.value)}  placeholder='Enter dosage' height={'auto'} size='lg' />
            <Text fontSize={'md'} fontWeight={'bold'}>Warning</Text>
-           <Textarea marginTop={'10px'} type='text' value={warning} onChange={(e)=>setWarning(e.target.value)}  placeholder='Short Description' height={'auto'} size='lg' />
+           <Input marginTop={'10px'} type='text' value={warning} onChange={(e)=>setWarning(e.target.value)}  placeholder='Enter warning' height={'auto'} size='lg' />
             
            <Button  marginTop={'20px'} bg={'pink.600'} color={'white'} onClick={handleUpdate} >Update Product</Button>
               
