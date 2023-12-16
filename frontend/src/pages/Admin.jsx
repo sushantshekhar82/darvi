@@ -284,7 +284,6 @@ const Admin = () => {
     })
 
   }
-  console.log(productName,price,shortdescription,longdescription)
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />

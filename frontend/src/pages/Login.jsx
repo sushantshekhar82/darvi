@@ -31,7 +31,8 @@ export default function Login() {
     if(email!=="" && password!=="" ){
       console.log(email,password)
       dispatch(loginuser(email,password)).then((res)=>{
-       
+       if(res){
+
         if(res.msg==="Login detail are incorrect"){
           toast({
             title: "Incorrect Login Details" ,
@@ -72,6 +73,16 @@ export default function Login() {
          localStorage.setItem("role",res.data.role)
         navigate("/products_page")
         }
+       }else{
+        toast({
+          title: "Server Error" ,
+      
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+       });
+       }
+        
       })
     }else{
       toast({

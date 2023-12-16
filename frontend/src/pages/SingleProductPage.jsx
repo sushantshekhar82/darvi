@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem, Image,Text,Button, Spinner, useToast, Input, Divider, Stack, StackDivider, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, Image,Text,Button, Spinner, useToast, Input, Divider, Stack, StackDivider, useColorModeValue, Textarea } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
@@ -11,6 +11,30 @@ import { MdLocalShipping } from "react-icons/md";
 import Footer from '../components/Footer';
 import config from '../config';
 function Star({ rating }) {
+  return (
+    <Box display="flex" alignItems="center">
+      {Array(5)
+        .fill("")
+        .map((_, i) => {
+          const roundedRating = Math.round(rating * 2) / 2;
+          if (roundedRating - i >= 1) {
+            return (
+              <BsStarFill
+                key={i}
+                style={{ marginLeft: "1" }}
+                color={i < rating ? "#e4c72b" : "gray.300"}
+              />
+            );
+          }
+          if (roundedRating - i === 0.5) {
+            return <BsStarHalf  key={i} style={{ marginLeft: "1" }} />;
+          }
+          return <BsStar  key={i} style={{ marginLeft: "1", }} />;
+        })}
+    </Box>
+  );
+}
+function Star2({ rating }) {
   return (
     <Box display="flex" alignItems="center">
       {Array(5)
@@ -49,6 +73,10 @@ const SingleProductPage = () => {
   const [filled, setFilled] = useState(false);
   const [selectedCount, setSelectedCount] = useState(0);
   const [hoverCount, setHoverCount] = useState(0);
+  const [name,setName]=useState("")
+  const [desc,setDesc]=useState("")
+  const [reviewData,setReviewData]=useState([])
+
 
   const handleStarClick = (starCount) => {
     setSelectedCount(starCount);
@@ -65,9 +93,10 @@ const SingleProductPage = () => {
       setHoverCount(0);
     }
   };
-    console.log(hoverCount)
+  
     useEffect(()=>{
-      axios.get(`${config.LOCAL_URL}/api/cart/cartitems/${id}`).then((res)=>{
+      axios.get(`${config.LOCAL_URL}/api/cart/cartitems/${id}`, {
+      }).then((res)=>{
       
         Length(res.data.cartCount)
       })
@@ -84,8 +113,16 @@ const SingleProductPage = () => {
     }).finally((res)=>{
       setLoading(false)
     })
+
+   
    
   },[])
+  useEffect(()=>{
+    axios.get(`${config.LOCAL_URL}/api/review/${param.id}`).then((res)=>{
+      setReviewData(res.data)
+    })
+  },[])
+  console.log(reviewData)
   const handleDecrease = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -114,9 +151,10 @@ const handleCart=async()=>{
       image1url:products.image1url,
       productquantity:quantity
      }, {
-    headers: {
-      Authorization: `${localStorage.getItem("token")}`
-    }
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem("token"),
+      }
   }).then((res)=>{
     console.log(res.data.message)
   if(res.data.message==='Product added to cart'){
@@ -148,6 +186,41 @@ const handleCart=async()=>{
    navigate('/login')
    
   }
+}
+
+const handleReview = ()=>{
+
+  if(name!="" && desc!="" && hoverCount!=0){
+    axios.post(`${config.LOCAL_URL}/api/review/create`,{ 
+      productId:products._id,
+      userId:id,
+      name,
+      desc,
+      isReviewed:"True",
+      rating:hoverCount
+     }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem("token"),
+      }}).then((res)=>{
+     console.log(res)
+     setName("")
+   setDesc("")
+   setHoverCount(0)
+    })
+  }else{
+    toast({
+      title: "Enter all fields" ,
+  
+      status: "error",
+      duration: 1500,
+      isClosable: true,
+   });
+   
+  }
+  
+
+
 }
   return (
     <Box >
@@ -272,18 +345,21 @@ Also, the healthy liver helps in better food absorption</Text>
 
     </TabPanel>
     <TabPanel>
-      hello
+   hello
     </TabPanel>
     <TabPanel>
-    <Box display={'flex'}>
+      <Grid gridTemplateColumns={{base:'1fr',lg:'1fr 1fr'}} justifyContent={'center'} alignItems={'center'} gap={3}>
+        <GridItem>
+        <Box display={'flex'}  justifyContent={'center'}>
       {[...Array(5)].map((_, index) => (
+        <Box display={'flex'}>
         <Text
           key={index}
           onMouseEnter={() => handleStarHover(index + 1)}
           onMouseLeave={resetHoverCount}
           onClick={() => handleStarClick(index + 1)}
           style={{
-            fontSize: '2rem',
+            fontSize: '4rem',
             cursor: 'pointer',
            
            
@@ -299,16 +375,62 @@ Also, the healthy liver helps in better food absorption</Text>
         >
           &#9733;
         </Text>
+        </Box>
       ))}
-      <Box>
-        <Text>Selected Stars: {selectedCount > 0 ? selectedCount : hoverCount}</Text>
-      </Box>
+     
     </Box>
+    <Box >
+        <Text fontSize={'50px'} fontWeight={'bold'}   display={'flex'} justifyContent={'center'} alignItems={'center'}> {selectedCount > 0 ? selectedCount : hoverCount}</Text>
+      </Box>
+        </GridItem>
+        <GridItem>
+           
+           
+            <Textarea placeholder='Write Review here' value={desc} marginTop={'10px'} border={'1px solid gray'}  onChange={(e)=>setDesc(e.target.value)}/>
 
+          <Button marginTop={'10px'} color={'white'} bgColor={'#5cac60'}  _hover={
+          {
+           cursor:'pointer'
+          }}  onClick={handleReview}>Submit</Button>
+        </GridItem>
+      </Grid>
+    
     </TabPanel>
    
   </TabPanels>
 </Tabs>
+<Box>
+ 
+{
+  reviewData.map((el)=>(
+    <Box
+    display="inline-block"
+    position="relative"
+    borderRadius={'5px'}
+    overflow="hidden"
+   width={{base:'97%',lg:'97%'}}
+   height={{base:'auto',lg:'auto'}}
+    transition="transform 0.3s"
+    
+    _hover={{
+      transform: "scale(1.02)",
+    }}
+    marginBottom={'10px'}
+  >
+    <Grid gridTemplateColumns={'20% 80%'} gap={2} padding={5} justifyContent={'center'} alignItems={'center'}>
+        <GridItem justifyContent={'center'} alignItems={'center'} margin={'auto'}><Image src="https://daarvipharmaceuticals.vercel.app/darvi.png" alt="Darvi"  width={'100%'}   /></GridItem>
+        <GridItem>
+        <Star rating={el.rating} />
+        {el.desc}
+ <Text fontWeight={'bold'}>{el.name}</Text>
+ 
+        </GridItem>
+    </Grid>
+ 
+  </Box>
+  ))
+}
+</Box>
       </Box>
       <Footer/>
     </Box>

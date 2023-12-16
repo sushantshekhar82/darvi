@@ -33,7 +33,12 @@ const CartPage = () => {
    
   useEffect(() => {
     setLoading(true)
-    axios.get(`${config.LOCAL_URL}/api/cart/cartitems/${id}`).then((res) => {
+    axios.get(`${config.LOCAL_URL}/api/cart/cartitems/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem("token"),
+      }
+    }).then((res) => {
       setProducts(res.data.cart);
       Length(res.data.cartCount);
       setTotalprice(res.data.totalCartPrice);
