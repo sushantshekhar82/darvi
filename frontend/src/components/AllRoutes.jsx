@@ -18,12 +18,16 @@ import AddNewAdmin from '../pages/AddNewAdmin'
 import OrdersAdmin from '../pages/OrdersAdmin'
 import UsersAdmin from '../pages/UsersAdmin'
 import PrivateRouteAdmin from './PrivateRouteAdmin'
+import AboutUs from '../pages/AboutUs'
+import ContactUs from '../pages/ContactUs'
 const AllRoutes = () => {
   return (
     <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/aboutus' element={<AboutUs/>}/>
+        <Route path='/contactus' element={<ContactUs/>}/>
         <Route path='/register/verify_email' element={<VerifyEmail/>}/>
         <Route path='/login/reset_password_mail' element={<ForgetPasswordMail/>}/>
         <Route path='/login/reset_password' element={<ResetPassword/>}/>

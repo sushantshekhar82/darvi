@@ -10,6 +10,13 @@ import { AppContext } from '../components/AppContextProvider';
 import { MdLocalShipping } from "react-icons/md";
 import Footer from '../components/Footer';
 import config from '../config';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+} from '@chakra-ui/react'
 function Star({ rating }) {
   return (
     <Box display="flex" alignItems="center">
@@ -121,7 +128,7 @@ const SingleProductPage = () => {
     axios.get(`${config.LOCAL_URL}/api/review/${param.id}`).then((res)=>{
       setReviewData(res.data)
     })
-  },[])
+  },[count])
   console.log(reviewData)
   const handleDecrease = () => {
     if (quantity > 1) {
@@ -189,8 +196,8 @@ const handleCart=async()=>{
 }
 
 const handleReview = ()=>{
-
-  if(name!="" && desc!="" && hoverCount!=0){
+console.log(name,desc)
+  if(desc!="" && hoverCount!=0){
     axios.post(`${config.LOCAL_URL}/api/review/create`,{ 
       productId:products._id,
       userId:id,
@@ -203,25 +210,48 @@ const handleReview = ()=>{
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem("token"),
       }}).then((res)=>{
-     console.log(res)
-     setName("")
-   setDesc("")
-   setHoverCount(0)
-    })
-  }else{
-    toast({
-      title: "Enter all fields" ,
-  
-      status: "error",
-      duration: 1500,
-      isClosable: true,
-   });
-   
+        if(res){
+          if(res.data.message=="You already reviewed"){
+            toast({
+              title: "You already reviewed" ,
+          
+              status: "warning",
+              duration: 3000,
+              isClosable: true,
+           });
+          }
+          else  if(res.data.message=="Review saved successfully"){
+            toast({
+              title: "Thank you for your feedback" ,
+          
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+           })
+           setCount(count+1)
+          }
+          else{
+            toast({
+              title: "Error Try after some time" ,
+          
+              status: "error",
+              duration: 3000,
+              isClosable: true,
+          });
+          }
+      }})
+    }
+    else{
+      toast({
+        title: "Enter Feedback and Rate product" ,
+    
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+    });
+    }
+    
   }
-  
-
-
-}
   return (
     <Box >
       <WithSubnavigation/>
@@ -345,7 +375,44 @@ Also, the healthy liver helps in better food absorption</Text>
 
     </TabPanel>
     <TabPanel>
-   hello
+    <Accordion>
+  <AccordionItem>
+    <h2>
+      <AccordionButton>
+        <Box as="span" flex='1' textAlign='left' fontWeight={'bold'}>
+        Why Nithya Amruth ? 
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+    </h2>
+    <AccordionPanel pb={4}>
+      <Text as={'h3'} > *BOOSTS APPETITE </Text>
+   
+      <Text as={'h3'} >*RELIEVES GASTRIC REFLUX </Text>
+      <Text as={'h3'} >*RELIVES ACIDITY </Text>
+      <Text as={'h3'} >*CURES CONSTIPATION</Text>
+      <Text as={'h3'} >*INDIGESTION</Text>
+      <Text as={'h3'} >*HELPS TO IMPROVE IMMUNE SYSTEM</Text>
+    </AccordionPanel>
+  </AccordionItem>
+
+  <AccordionItem>
+    <h2>
+      <AccordionButton>
+      <Box as="span" flex='1' textAlign='left' fontWeight={'bold'}>
+      Why GAS O DIGI ? 
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+    </h2>
+    <AccordionPanel pb={4}>
+    <Text as={'h3'} > *Helpful in relieving acidity.</Text>
+    <Text as={'h3'} >*Provides relief from gas & abdominal discomfort.</Text>
+    <Text as={'h3'} >*Beneficial in bloating & heartburn.</Text>
+    <Text as={'h3'} >*Effective in nausea & vomiting.</Text>
+    </AccordionPanel>
+  </AccordionItem>
+</Accordion>
     </TabPanel>
     <TabPanel>
       <Grid gridTemplateColumns={{base:'1fr',lg:'1fr 1fr'}} justifyContent={'center'} alignItems={'center'} gap={3}>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import WithSubnavigation from '../components/Navbar'
-import { Box, Button, Divider, Grid, GridItem, Image, Spinner, Text } from '@chakra-ui/react'
+import { Box, Button, Divider, Flex, Grid, GridItem, Image, Spinner, Text, useToast } from '@chakra-ui/react'
 import axios from 'axios'
 import config from '../config'
 import MyOrderBox from '../components/MyOrderBox'
@@ -10,6 +10,8 @@ const OrderPage = () => {
   const id=localStorage.getItem('userid')
  const [orders,setOrders]=useState([])
  const [loading,setLoading]=useState(false)
+ const toast=useToast()
+ const [count,setCount]=useState(0)
   useEffect(()=>{
     setLoading(true)
     axios.get(`${config.LOCAL_URL}/api/order/myorders/${id}`).then((res)=>{
@@ -17,8 +19,34 @@ const OrderPage = () => {
     }).finally((res)=>{
       setLoading(false)
     });
-   },[])
-   console.log(orders)
+   },[count])
+   const handleCancel = (id)=>{
+       axios.put(`${config.LOCAL_URL}/api/order/update/${id}`,{
+          status:"cancelled"
+       }).then((res)=>{
+        if(res){
+          if(res.data.message=="updated successfully"){
+            toast({
+              title: "Request Accepted" ,
+          
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+           });
+          }
+         else if(res.data.message=="Already Requested"){
+          toast({
+            title: "Alreday Requested" ,
+        
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+         });
+          }
+        }
+        setCount(count+1)
+       })
+   }
   return (
     <Box>
       <WithSubnavigation/>
@@ -115,12 +143,25 @@ const OrderPage = () => {
       
     ))}
      <Divider size={'5px'}/>
-      <Text fontWeight="bold" fontSize="lg" mt={2}>
+     <Flex justifyContent={'space-between'} alignItems={'center'}>
+     <Box>
+     <Text fontWeight="bold" fontSize="lg" mt={2}>
         Total Price:
       </Text>
       <Text>
         ₹{order.totalPrice}
       </Text>
+     </Box>
+     <Box>
+        {order.status=="deliverd"?<Text>Thank You😊</Text>:order.status=="cancelled"?<Text fontSize={'20px'} fontWeight={'bold'}>Cancelled</Text>:<Button bgColor={'red.600'} color={'white'} _hover={{
+          bgColor:'red.600'
+        }} onClick={() => {
+          handleCancel(order._id)
+          }}> Request Cancel Order</Button>} 
+     </Box>
+     </Flex>
+     
+     
     
   </Box>
 </Box>

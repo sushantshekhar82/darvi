@@ -141,3 +141,24 @@ line-height: 60px; /* 333.333% */
   }
   
 }
+
+.outerbox{
+  position: relative;
+  background-image: url(../public/mobbackground.webp);
+  width: 100%;
+  height: auto;
+  padding-bottom: 10px;
+  background-size: cover;
+}
+.zindex{
+  position: relative;
+  z-index: 2;
+}
+.outerbox2{
+  
+  background-image: url(../public//mobbackground.webp);
+  width: 100%;
+  height:auto;
+  background-size: cover;
+  padding-bottom: 10px;
+}

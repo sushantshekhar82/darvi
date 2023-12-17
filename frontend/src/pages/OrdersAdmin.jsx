@@ -290,23 +290,25 @@ const OrdersAdmin = () => {
 
          <strong>Status:</strong>{" "}
          {
-          order.status!='cancelled'?   <Select onChange={(e)=>setStatus(e.target.value)}>
+          order.status=='cancelled'? ""  :<Select onChange={(e)=>setStatus(e.target.value)}>
+            <option>Select Status</option>
           <option value={'pending'}>Pending</option>
            <option value={'dispatched'}>Dispatched</option>
            <option value={'delivered'}>Delivered</option>
-          </Select>:"Cancelled"
+           <option value={'cancelled'}>Cancelled</option>
+          </Select>
          }
        
        </Text>
        <Text>
          <strong>Delivery Date:</strong>{" "}
          {
-          order.status!='cancelled'? <Input type='date' value={date} onChange={(e)=>setDate(e.target.value)}/>
-          :"Cancelled"
+          order.status=='cancelled'?<Text fontSize={'20px'} fontWeight={'bold'}>Item Cancelled by customer</Text>:<Input type='date' value={date} onChange={(e)=>setDate(e.target.value)}  min={new Date().toISOString().split('T')[0]}/>
+          
          }
          </Text>
          {
-          order.status!='cancelled'?    <Button
+          order.status=='cancelled'? "":   <Button
           bg="orange.400" // Setting button background to orange
           color="white" // Setting text color to white
           onClick={() => {
@@ -314,12 +316,7 @@ const OrdersAdmin = () => {
           }}
         > 
           Update
-        </Button>: <Button
-         bg="red.400" // Setting button background to orange
-         color="white" // Setting text color to white
-       > 
-         Item Cancelled
-       </Button>
+        </Button> 
          }
       
      </Box>
@@ -343,7 +340,8 @@ const OrdersAdmin = () => {
        <Text>
          <strong>Zipcode:</strong> {order.address.zipcode}
        </Text>
-     
+       Current User Status: <Text color={'green.600'} fontWeight={'bold'}>{order.status}</Text>
+     Current Delivery Date<Text color={'orange.600'} fontWeight={'bold'}>{new Date(order.deliveryDate).toLocaleString()}</Text>
      </Box>
    </Box>
    {/* Second Row */}

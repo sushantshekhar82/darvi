@@ -193,8 +193,9 @@ import config from '../config';
           <Flex gap={'5px'}>   Welcome!{users? <Text fontWeight={'bold'} marginLeft={'2px'}>{users}</Text>:<Link to="/login"><Button backgroundColor={'green.400'} height={'25px'} color={'white'}>Sign in</Button></Link>}</Flex>
           <Link to="/"> <Flex gap={'5px'} alignItems={'center'}marginTop={'15px'}><AiFillHome/> <Text fontWeight={'bold'} fontSize={'20px'}>Home</Text></Flex></Link>
            <Link to="/products_page"> <Flex gap={'5px'} alignItems={'center'}marginTop={'15px'} > <BsHeartFill/><Text fontWeight={'bold'} fontSize={'20px'}>Products</Text></Flex></Link>
-           <Flex gap={'5px'} alignItems={'center'}marginTop={'15px'}>  <FaPeopleArrows/><Text fontWeight={'bold'} fontSize={'20px'}>Our Story</Text></Flex>
-           <Flex gap={'5px'} alignItems={'center'}marginTop={'15px'}><BiSolidContact/> <Text fontWeight={'bold'} fontSize={'20px'}>Contact</Text></Flex>
+           <Link to="/aboutus"><Flex gap={'5px'} alignItems={'center'}marginTop={'15px'}>  <FaPeopleArrows/><Text fontWeight={'bold'} fontSize={'20px'}>Our Story</Text></Flex></Link>
+         
+           <Link to="/contactus"><Flex gap={'5px'} alignItems={'center'}marginTop={'15px'}><BiSolidContact/> <Text fontWeight={'bold'} fontSize={'20px'}>Contact</Text></Flex></Link>
            <Link to="/order%20page"> <Flex gap={'5px'} alignItems={'center'}marginTop={'15px'}><FaPeopleCarry/> <Text fontWeight={'bold'} fontSize={'20px'}>My Order</Text></Flex></Link>
           {token?<Button marginTop={'15px'} backgroundColor={'red.700'} fontWeight={'bold'} onClick={handleLogout} color={'white'}>LogOut</Button>:""}
           </DrawerBody>
@@ -378,11 +379,11 @@ import config from '../config';
     },
     {
       label: 'Our Story',
-      href: '',
+      href: '/aboutus',
     },
     {
       label: 'Contact',
-      href: '',
+      href: '/contactus',
     }
 
   ];
