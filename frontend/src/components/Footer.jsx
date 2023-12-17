@@ -94,8 +94,8 @@ daarvipharmceuticals@gmail.com
 
            
           </Stack>
-          <Stack  align={'flex-start'}>
-            <ListHeader ><Text color='#345b22' fontWeight={'bold'}>Products________</Text></ListHeader>
+          <Stack  align={'flex-start'} >
+            <ListHeader ><Text color='#345b22' fontWeight={'bold'}>Products</Text></ListHeader>
             <Box marginTop={'-10px'}  >
              <Link to="/products_page"> Nithya Amruth</Link>
             </Box>
@@ -105,19 +105,19 @@ daarvipharmceuticals@gmail.com
             
           </Stack>
           <Stack align={'flex-start'}>
-          <ListHeader ><Text color='#345b22' fontWeight={'bold'}>Quick Links________</Text></ListHeader>
+          <ListHeader ><Text color='#345b22' fontWeight={'bold'}>Quick Links</Text></ListHeader>
             <Box marginTop={'-10px'}  >
             <Link to="/">  Home</Link>
             </Box>
             <Box >
-            <Link to="/products_page">  Products</Link>
+            <Link to="/products_page">Products</Link>
             </Box>
             <Box >
             <Link to="/cart_page">  Cart</Link>
             </Box>
           </Stack>
           <Stack align={'flex-start'}>
-            <ListHeader><Text color='#345b22' fontWeight={'bold'}>Stay up to date________</Text></ListHeader>
+            <ListHeader><Text color='#345b22' fontWeight={'bold'}>Stay up to date</Text></ListHeader>
             <Stack direction={'row'} spacing={6}>
               <SocialButton label={'Twitter'} href={'#'}>
                 <FaTwitter />

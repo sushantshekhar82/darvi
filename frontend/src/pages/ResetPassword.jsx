@@ -2,12 +2,12 @@
 
 import {
   Button,
-  Checkbox,
+
   Flex,
   Text,
   FormControl,
   FormLabel,
-  Heading,
+
   Input,
   Stack,
   Image,
@@ -16,32 +16,28 @@ import {
   Spinner,
 } from '@chakra-ui/react'
 import WithSubnavigation from '../components/Navbar'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { postuser } from '../redux/register/action'
+import {  useSearchParams } from 'react-router-dom'
+import {useState } from 'react'
 
-import { useLocation } from "react-router-dom";
 import config from '../config'
 import axios from 'axios'
 
 export default function ResetPassword() {
-  const [products,setProducts]=useState([]);
+  
   const [loading,setLoading]=useState(false)
   const [searchParams,setSearchParam]=useSearchParams();
   const token = searchParams.get("token");
   const userEmail=searchParams.get("email")
-  const [paramtoken,setParamToken]=useState(token)
-  const [status,setStatus]=useState(false)
+  
   const toast = useToast();
-  const [text,setText]=useState("")
+
 const [password,setPassword]=useState("")
 const [confirmPassword,setConfirmPassword]=useState("")
 
   const handleReset=()=>{
     console.log(userEmail,password)
     if(password==confirmPassword){
-      axios.put(`${config.LOCAL_URL}/api/forget_password`,{
+      axios.put(`${config.DEPLOYED_URL}/api/forget_password`,{
     
         email:userEmail,
         password:password

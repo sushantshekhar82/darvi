@@ -2,7 +2,7 @@
 
 import {
   Button,
-  Checkbox,
+ 
   Flex,
   Text,
   FormControl,
@@ -29,11 +29,29 @@ export default function Register() {
   const dispatch=useDispatch()
   const navigate = useNavigate();
   const {loading,message}=useSelector((store)=>store.user)
+  function validatePhoneNumber(phoneNumber) {
+    // Remove non-digit characters
+    const digits = phoneNumber.replace(/\D/g, '');
+    // Check if resulting string has exactly 10 digits
+    return digits.length === 10;
+}
+
+function validatePassword(password) {
+    // Check if password length is at least 8 characters
+    return password.length >= 8;
+}
+
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
   const handleSubmit=()=>{
-    if(name!=="" && email!=="" && mobile!==""&& password!==""){
-      console.log(name,email,mobile,password)
+    if(name!=="" && validateEmail(email) && validatePhoneNumber(mobile) && validatePassword(password)){
+
+      
+      
       dispatch(postuser(name,email,mobile,password)).then((res)=>{
-        console.log(res)
+        
         if(res.msg=="User already Registered"){
           toast({
             title: "Email or Mobile already exists, Kindly login" ,
@@ -57,7 +75,7 @@ export default function Register() {
       })
     }else{
       toast({
-        title: "Enter all fields" ,
+        title: "Enter all fields or Correct detail" ,
     
         status: "error",
         duration: 1500,
@@ -81,19 +99,19 @@ export default function Register() {
           <Heading fontSize={'2xl'} textAlign={'center'}>Get Started Now</Heading>
           <FormControl id="name">
             <FormLabel>Name</FormLabel>
-            <Input type="text" value={name}  onChange={(e)=>setName(e.target.value)}/>
+            <Input type="text" value={name} placeholder='Enter you name'  onChange={(e)=>setName(e.target.value)}/>
           </FormControl>
           <FormControl id="email">
             <FormLabel>Email address</FormLabel>
-            <Input type="email"  value={email} onChange={(e)=>setEmail(e.target.value)}/>
+            <Input type="email"  value={email} placeholder='Enter valid email' onChange={(e)=>setEmail(e.target.value)}/>
           </FormControl>
           <FormControl id="mobile">
             <FormLabel>Mobile Number</FormLabel>
-            <Input type="number" value={mobile} onChange={(e)=>setMobile(e.target.value)}/>
+            <Input type="number" value={mobile} placeholder='Enter 10 digit mobile number' onChange={(e)=>setMobile(e.target.value)}/>
           </FormControl>
           <FormControl id="password">
             <FormLabel>Password</FormLabel>
-            <Input type="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+            <Input type="password" value={password} placeholder='Password should be min 8 char ' onChange={(e)=>setPassword(e.target.value)}/>
           </FormControl>
           <Stack spacing={6}>
             

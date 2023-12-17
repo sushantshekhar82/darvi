@@ -14,11 +14,10 @@ import {
   Drawer,
   DrawerContent,
   useDisclosure,
-  BoxProps,
-  FlexProps,
+  
   Menu,
   MenuButton,
-  MenuDivider,
+
   MenuItem,
   MenuList,
   Image,
@@ -34,9 +33,9 @@ import {
 import {
   FiHome,
   FiTrendingUp,
-  FiCompass,
+ 
   FiStar,
-  FiSettings,
+ 
   FiMenu,
   FiBell,
   FiChevronDown,
@@ -46,6 +45,8 @@ import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import config from '../config'
+import { FaArrowsDownToPeople } from 'react-icons/fa6'
+import { GrContact } from 'react-icons/gr'
 
 
 
@@ -53,6 +54,9 @@ const LinkItems= [
   { name: 'Edit Products',href:'/admin', icon: FiHome },
   { name: 'Add New ',href:'/admin/addnew', icon: FiTrendingUp },
   { name: 'Orders',href:'/admin/orders', icon: FiStar },
+  { name: 'Create Admin',href:'/admin/createAdmin', icon: FaArrowsDownToPeople },
+  { name: 'All Contact Form',href:'/admin/contactsForm', icon: GrContact },
+  
  
 ]
 
@@ -137,13 +141,12 @@ const MobileNav = ({ onOpen, ...rest }) => {
         icon={<FiMenu />}
       />
 
-      <Text
-        display={{ base: 'flex', md: 'none' }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold">
-        Logo
-      </Text>
+<Image
+                  width={"auto  "}
+                  margin={"auto"}
+                  src="https://daarvipharmaceuticals.vercel.app/darvi.png"
+                  alt="Darvi Logo"
+                />
 
       <HStack spacing={{ base: '0', md: '6' }}>
         <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} />
@@ -196,7 +199,7 @@ const OrdersAdmin = () => {
   const [activeid,setActiveId]=useState("")
    useEffect(()=>{
      setLoading(true)
-     axios.get(`${config.LOCAL_URL}/api/order/admin/allorders`).then((res)=>{
+     axios.get(`${config.DEPLOYED_URL}/api/order/admin/allorders`).then((res)=>{
           setOrders(res.data.orders)
      }).finally((res)=>{
        setLoading(false)
@@ -209,7 +212,7 @@ const OrdersAdmin = () => {
        deliveryDate:date
       }
   
-      fetch(`${config.LOCAL_URL}/api/order/admin/update/${id}`,  {
+      fetch(`${config.DEPLOYED_URL}/api/order/admin/update/${id}`,  {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -290,7 +293,7 @@ const OrdersAdmin = () => {
 
          <strong>Status:</strong>{" "}
          {
-          order.status=='cancelled'? ""  :<Select onChange={(e)=>setStatus(e.target.value)}>
+          order.status=='cancelled'? ""  :<Select border={'1px solid gray'} onChange={(e)=>setStatus(e.target.value)}>
             <option>Select Status</option>
           <option value={'pending'}>Pending</option>
            <option value={'dispatched'}>Dispatched</option>
@@ -303,7 +306,7 @@ const OrdersAdmin = () => {
        <Text>
          <strong>Delivery Date:</strong>{" "}
          {
-          order.status=='cancelled'?<Text fontSize={'20px'} fontWeight={'bold'}>Item Cancelled by customer</Text>:<Input type='date' value={date} onChange={(e)=>setDate(e.target.value)}  min={new Date().toISOString().split('T')[0]}/>
+          order.status=='cancelled'?<Text fontSize={'20px'} fontWeight={'bold'}>Item Cancelled by customer</Text>:<Input type='date' value={date} onChange={(e)=>setDate(e.target.value)} border={'1px solid gray'} placeholder='Delivery Date'  min={new Date().toISOString().split('T')[0]}/>
           
          }
          </Text>
@@ -311,6 +314,7 @@ const OrdersAdmin = () => {
           order.status=='cancelled'? "":   <Button
           bg="orange.400" // Setting button background to orange
           color="white" // Setting text color to white
+          marginTop={'2px'}
           onClick={() => {
           handleUpdate(order._id)
           }}

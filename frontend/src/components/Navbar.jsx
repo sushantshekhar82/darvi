@@ -60,7 +60,7 @@ import config from '../config';
     const [users,setUsers]=useState(user)
     
     useEffect(()=>{
-      axios.get(`${config.LOCAL_URL}/api/cart/cartitems/${id}`).then((res)=>{
+      axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`).then((res)=>{
            Length(res.data.cartCount)
       })
      },[length])
@@ -184,7 +184,7 @@ import config from '../config';
                 <Image
                   width={"50%"}
                   margin={"auto"}
-                  src="./darvilogo.webp"
+                  src="https://daarvipharmaceuticals.vercel.app/darvi.png"
                   alt="Darvi Logo"
                 />
               </DrawerHeader>
@@ -203,7 +203,7 @@ import config from '../config';
           <Image
                   width={"50%"}
                   margin={"auto"}
-                  src="./darvilogo.webp"
+                  src="https://daarvipharmaceuticals.vercel.app/darvi.png"
                   alt="Darvi Logo"
                 />
           </DrawerFooter>

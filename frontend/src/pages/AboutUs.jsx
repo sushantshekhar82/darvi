@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Grid, GridItem, Image, Text,Flex,Divider}from '@chakra-ui/react'
+import {Box, Grid, GridItem, Image, Text}from '@chakra-ui/react'
 import WithSubnavigation from '../components/Navbar'
 import Footer from '../components/Footer'
 const AboutUs = () => {

@@ -14,14 +14,14 @@ const OrderPage = () => {
  const [count,setCount]=useState(0)
   useEffect(()=>{
     setLoading(true)
-    axios.get(`${config.LOCAL_URL}/api/order/myorders/${id}`).then((res)=>{
+    axios.get(`${config.DEPLOYED_URL}/api/order/myorders/${id}`).then((res)=>{
          setOrders(res.data.orders)
     }).finally((res)=>{
       setLoading(false)
     });
    },[count])
    const handleCancel = (id)=>{
-       axios.put(`${config.LOCAL_URL}/api/order/update/${id}`,{
+       axios.put(`${config.DEPLOYED_URL}/api/order/update/${id}`,{
           status:"cancelled"
        }).then((res)=>{
         if(res){

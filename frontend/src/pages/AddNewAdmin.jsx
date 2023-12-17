@@ -14,11 +14,10 @@ import {
   Drawer,
   DrawerContent,
   useDisclosure,
-  BoxProps,
-  FlexProps,
+ 
   Menu,
   MenuButton,
-  MenuDivider,
+ 
   MenuItem,
   MenuList,
   Image,
@@ -30,17 +29,19 @@ import {
 import {
   FiHome,
   FiTrendingUp,
-  FiCompass,
+ 
   FiStar,
-  FiSettings,
+ 
   FiMenu,
   FiBell,
   FiChevronDown,
 } from 'react-icons/fi'
-import { IconType } from 'react-icons'
+
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import config from '../config'
+import { FaArrowsDownToPeople } from 'react-icons/fa6'
+import { GrContact } from 'react-icons/gr'
 
 
 
@@ -48,7 +49,9 @@ const LinkItems= [
   { name: 'Edit Products',href:'/admin', icon: FiHome },
   { name: 'Add New ',href:'/admin/addnew', icon: FiTrendingUp },
   { name: 'Orders',href:'/admin/orders', icon: FiStar },
- 
+  { name: 'Create Admin',href:'/admin/createAdmin', icon: FaArrowsDownToPeople },
+  { name: 'All Contact Form',href:'/admin/contactsForm', icon: GrContact },
+  
 ]
 
 const SidebarContent = ({ onClose, ...rest }) => {
@@ -132,13 +135,12 @@ const MobileNav = ({ onOpen, ...rest }) => {
         icon={<FiMenu />}
       />
 
-      <Text
-        display={{ base: 'flex', md: 'none' }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold">
-        Logo
-      </Text>
+<Image
+                  width={"auto  "}
+                  margin={"auto"}
+                  src="https://daarvipharmaceuticals.vercel.app/darvi.png"
+                  alt="Darvi Logo"
+                />
 
       <HStack spacing={{ base: '0', md: '6' }}>
         <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} />
@@ -212,7 +214,7 @@ const AddNewAdmin = () => {
             image3url,
             image4url,
           };
-        fetch(`${config.LOCAL_URL}/api/product/allproducts`,  {
+        fetch(`${config.DEPLOYED_URL}/api/product/allproducts`,  {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

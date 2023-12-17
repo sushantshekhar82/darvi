@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem, Image,Text,Button, Spinner, useToast, Input, Divider, Stack, StackDivider, useColorModeValue, Textarea } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, Image,Text,Button, Spinner, useToast,  Divider, Stack, StackDivider, Textarea } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
@@ -41,30 +41,7 @@ function Star({ rating }) {
     </Box>
   );
 }
-function Star2({ rating }) {
-  return (
-    <Box display="flex" alignItems="center">
-      {Array(5)
-        .fill("")
-        .map((_, i) => {
-          const roundedRating = Math.round(rating * 2) / 2;
-          if (roundedRating - i >= 1) {
-            return (
-              <BsStarFill
-                key={i}
-                style={{ marginLeft: "1" }}
-                color={i < rating ? "#e4c72b" : "gray.300"}
-              />
-            );
-          }
-          if (roundedRating - i === 0.5) {
-            return <BsStarHalf  key={i} style={{ marginLeft: "1" }} />;
-          }
-          return <BsStar  key={i} style={{ marginLeft: "1", }} />;
-        })}
-    </Box>
-  );
-}
+
 const SingleProductPage = () => {
   const [products,setProducts]=useState([]);
   const [selectedImage, setSelectedImage] = useState('');
@@ -102,7 +79,7 @@ const SingleProductPage = () => {
   };
   
     useEffect(()=>{
-      axios.get(`${config.LOCAL_URL}/api/cart/cartitems/${id}`, {
+      axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`, {
       }).then((res)=>{
       
         Length(res.data.cartCount)
@@ -112,7 +89,7 @@ const SingleProductPage = () => {
     setLoading(true)
     
 
-    axios.get(`${config.LOCAL_URL}/api/product/allproducts/${param.id}`).then((res)=>{
+    axios.get(`${config.DEPLOYED_URL}/api/product/allproducts/${param.id}`).then((res)=>{
       setProducts(res.data)
       if (res.data) {
         setSelectedImage(res.data.image2url);
@@ -125,7 +102,7 @@ const SingleProductPage = () => {
    
   },[])
   useEffect(()=>{
-    axios.get(`${config.LOCAL_URL}/api/review/${param.id}`).then((res)=>{
+    axios.get(`${config.DEPLOYED_URL}/api/review/${param.id}`).then((res)=>{
       setReviewData(res.data)
     })
   },[count])
@@ -149,7 +126,7 @@ const SingleProductPage = () => {
   ];
 const handleCart=async()=>{
   if(token){
-    await axios.post(`${config.LOCAL_URL}/api/cart/cartitems/addcart`, { 
+    await axios.post(`${config.DEPLOYED_URL}/api/cart/cartitems/addcart`, { 
       productId:products._id,
       productname:products.productname,
       category:products.category,
@@ -198,7 +175,7 @@ const handleCart=async()=>{
 const handleReview = ()=>{
 console.log(name,desc)
   if(desc!="" && hoverCount!=0){
-    axios.post(`${config.LOCAL_URL}/api/review/create`,{ 
+    axios.post(`${config.DEPLOYED_URL}/api/review/create`,{ 
       productId:products._id,
       userId:id,
       name,
@@ -298,7 +275,7 @@ console.log(name,desc)
          </Flex>
          <Flex justifyContent={'space-between'} alignItems={'center'}>
           <Text marginTop={'-10px'} as={'h4'} fontSize={'xl'} fontWeight={'bold'} paddingLeft={'10px'} >{products.category}</Text>
-         <Flex alignItems={'center'}> <BiMessageDetail/><Text>20 reviews</Text></Flex>
+         <Flex alignItems={'center'}> <BiMessageDetail/><Text>{reviewData.length} reviews</Text></Flex>
          </Flex>
          <Text as={'h2'} width={'90%'} paddingLeft={'10px'} fontSize={'2xl'} color={'gray.600'} fontWeight={'bold'}>{products.shortdescription}</Text>
           <Text as={'h2'} fontSize={'3xl'} fontWeight={'bold'} paddingLeft={'10px'}>₹{products.price}</Text>
@@ -329,7 +306,7 @@ console.log(name,desc)
           <Box marginTop={'10px'} paddingLeft={'10px'}><Button bgColor={'#5cac60'}  _hover={
           {
            cursor:'pointer'
-          }}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={{base:'350px',md:'200px',lg:'200px'}} height={'50px'}  borderRadius={'10px'} onClick={handleCart}>Add to Cart</Button></Box>
+          }}  fontSize={'xl'}  color={'white'} fontWeight={'bold'} width={{base:'300px',md:'200px',lg:'200px'}} height={'50px'}  borderRadius={'10px'} onClick={handleCart}>Add to Cart</Button></Box>
          
           </Flex>
          </GridItem>

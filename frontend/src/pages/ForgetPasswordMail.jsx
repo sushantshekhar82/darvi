@@ -38,7 +38,7 @@ export default function ForgetPasswordMail() {
 
 
   const handleSend=()=>{
-    axios.post(`${config.LOCAL_URL}/api/forget_password/forgetmail`,{
+    axios.post(`${config.DEPLOYED_URL}/api/forget_password/forgetmail`,{
       email:email
     }).then((res)=>{
       if(res.data.message=="mail send successfully"){

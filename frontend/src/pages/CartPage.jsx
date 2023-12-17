@@ -33,7 +33,7 @@ const CartPage = () => {
    
   useEffect(() => {
     setLoading(true)
-    axios.get(`${config.LOCAL_URL}/api/cart/cartitems/${id}`, {
+    axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem("token"),
@@ -49,7 +49,7 @@ const CartPage = () => {
   console.log(products, totalprice);
 const handleRemove=(prodid)=>{
 console.log(prodid)
-  axios.delete(`${config.LOCAL_URL}/api/cart/cartitems/delete/${prodid}`, {
+  axios.delete(`${config.DEPLOYED_URL}/api/cart/cartitems/delete/${prodid}`, {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': localStorage.getItem("token"),

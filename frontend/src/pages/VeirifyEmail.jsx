@@ -2,12 +2,10 @@
 
 import {
   Button,
-  Checkbox,
+
   Flex,
   Text,
-  FormControl,
-  FormLabel,
-  Heading,
+ 
   Input,
   Stack,
   Image,
@@ -17,16 +15,13 @@ import {
 } from '@chakra-ui/react'
 import WithSubnavigation from '../components/Navbar'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { postuser } from '../redux/register/action'
+import {  useState } from 'react'
 
-import { useLocation } from "react-router-dom";
 import config from '../config'
 import axios from 'axios'
 
 export default function VerifyEmail() {
-  const [products,setProducts]=useState([]);
+  
   const [loading,setLoading]=useState(false)
   const [searchParams,setSearchParam]=useSearchParams();
   const token = searchParams.get("token");
@@ -34,47 +29,32 @@ export default function VerifyEmail() {
   const [paramtoken,setParamToken]=useState(token)
   const [status,setStatus]=useState(false)
   const toast = useToast();
-  const [text,setText]=useState("")
-  const [nostatus,setNostatus]=useState(true)
-  console.log(token,userEmail)
-  useEffect(()=>{
-   if(token!==null || userEmail!==null){
-    setLoading(true)
+  const navigate=useNavigate()
 
-    axios.post(`${config.LOCAL_URL}/api/verify_email`,{
-      token:token,
+
+
+  const handleCheck=()=>{
+    axios.post(`${config.DEPLOYED_URL}/api/verify_email`,{
+      token:paramtoken,
       email:userEmail
 
     }).then((res)=>{
       console.log("here1",res)
-      if(res.data.data.emailVerify==="true"){
-        setStatus(true)
+      if(res.data.success==true){
+        toast({
+          title: "Verified Successfully" ,
+      
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+       });
+       navigate("/login")
+        
       }
-    }).finally((res)=>{
-      setLoading(false)
+
     })
    } 
   
-  },[])
-
-  const handleCheck=()=>{
-    axios.post(`${config.LOCAL_URL}/api/verify_email/get_user`,{
-      token:token,
-      email:userEmail
-    }).then((res)=>{
-      console.log("here2")
-      if(res.data.data.emailVerify==="true"){
-        setStatus(true)
-      }else{
-        setStatus(false)
-      }
-     
-     })
-     if(nostatus){
-     
-    }
-  }
-
  
 console.log(status)
 
@@ -98,13 +78,11 @@ console.log(status)
       <Flex p={8} flex={1} align={'center'} justify={'center'} >
         <Stack spacing={4} w={'130%'} maxW={'md'} backgroundColor={'white'}padding={'10px'} borderRadius={'10px'}>
         <Text as={'h1'} fontSize={{base:'2xl',md:'2xl',lg:'3xl'}}>Email has been sent to your mail, Please Verify your Email</Text>
-{
-  (status )?<><Text>Email Verified 😄</Text><Link to="/login"><Button bgColor={'red.500'} color={'white'} fontWeight={'bold'}>Login Now</Button></Link></>:<Text>Email Not Verified yet🥺</Text>
-}
 
-{
- (paramtoken!=null)?<Button bgColor={'skyblue'} onClick={handleCheck}>Check here</Button>:""
-}
+
+<Input type="text" value={paramtoken} onChange={(e)=>setParamToken(e.target.value)} placeholder='Enter your code here'/>
+ <Button bgColor={'skyblue'} onClick={handleCheck}>Verify Now</Button>
+
 
 
 

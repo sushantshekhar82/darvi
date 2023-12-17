@@ -14,30 +14,35 @@ import {
   Drawer,
   DrawerContent,
   useDisclosure,
-  
+
   Menu,
   MenuButton,
- 
+
   MenuItem,
   MenuList,
   Image,
+  useToast,
+
+  Grid,
+  GridItem,
 } from '@chakra-ui/react'
 import {
   FiHome,
   FiTrendingUp,
-  FiCompass,
+
   FiStar,
-  FiSettings,
+
   FiMenu,
   FiBell,
   FiChevronDown,
 } from 'react-icons/fi'
-import { IconType } from 'react-icons'
+
 import { Link } from 'react-router-dom'
-import { FaArrowsDownToPeople } from 'react-icons/fa6'
-import { GrContact } from 'react-icons/gr'
-
-
+import { useEffect, useState } from 'react'
+import config from '../config'
+import { FaArrowsDownToPeople } from "react-icons/fa6"
+import { GrContact } from "react-icons/gr";
+import axios from 'axios'
 
 const LinkItems= [
   { name: 'Edit Products',href:'/admin', icon: FiHome },
@@ -46,6 +51,7 @@ const LinkItems= [
   { name: 'Create Admin',href:'/admin/createAdmin', icon: FaArrowsDownToPeople },
   { name: 'All Contact Form',href:'/admin/contactsForm', icon: GrContact },
   
+ 
 ]
 
 const SidebarContent = ({ onClose, ...rest }) => {
@@ -175,11 +181,19 @@ const MobileNav = ({ onOpen, ...rest }) => {
   )
 }
 
-const UsersAdmin = () => {
+const AllContactAdmin = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-
+  const[contact,SetContact]=useState([])
+  const toast = useToast();
+  const token = localStorage.getItem("token");
+  useEffect((el)=>{
+    axios.get(`${config.DEPLOYED_URL}/api/contact/getContact`).then((res)=>{
+      SetContact(res.data)
+    })
+  })
+   
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box minH="auto" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />
       <Drawer
         isOpen={isOpen}
@@ -195,10 +209,33 @@ const UsersAdmin = () => {
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
-        {/* Content */}
-      </Box>
+       <Box  padding={'10px'}>
+        <Grid gridTemplateColumns={{base:'1fr',lg:'1fr 1fr 1fr'}} justifyContent={'center'} alignItems={'center'} gap={2}>
+
+          {
+            contact.map((el)=>(
+                 <GridItem>
+                  <Box backgroundColor={'white'}  padding={'5px'} borderRadius={'10px'} width={'300px'} height={'200px'}>
+                    <Text fontSize={'xl'} fontWeight={'bold'}>{el.name}</Text>
+                    <Text fontSize={'md'} fontWeight={'bold'}>{el.email}</Text>
+                  
+                    <Text fontSize={'md'} >{el.message}</Text>
+                  
+                  </Box>
+  
+                 </GridItem>
+            ))
+          }
+           
+        </Grid>
+    
     </Box>
+       
+       </Box>
+      
+      </Box>
+    
   )
 }
 
-export default UsersAdmin
+export default AllContactAdmin

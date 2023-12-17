@@ -22,7 +22,7 @@ const Checkout = () => {
     const navigate=useNavigate()
     useEffect(() => {
         setLoading(true)
-        axios.get(`${config.LOCAL_URL}/api/cart/cartitems/${id}`).then((res) => {
+        axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`).then((res) => {
           setProducts(res.data.cart);
         
           setTotalprice(res.data.totalCartPrice);
@@ -31,15 +31,21 @@ const Checkout = () => {
         });
       }, []);
       useEffect(()=>{
-        axios.get(`${config.LOCAL_URL}/api/cart/cartitems/${id}`).then((res)=>{
+        axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`).then((res)=>{
         
           Length(res.data.cartCount)
         })
        },[count,length])
+       function validatePhoneNumber(phoneNumber) {
+        // Remove non-digit characters
+        const digits = phoneNumber.replace(/\D/g, '');
+        // Check if resulting string has exactly 10 digits
+        return digits.length === 10;
+    }
       const handlePlaceOrder=async()=>{
-        if(name!=="" && address!=="" && zipcode!=="" && city!=="" && mobile!=="" ){
-       console.log(name,address,zipcode,city,mobile)
-       await axios.post(`${config.LOCAL_URL}/api/order/placeorder`, { 
+        if(name!=="" && address!=="" && zipcode!=="" && city!=="" && validatePhoneNumber(mobile)  ){
+       
+       await axios.post(`${config.DEPLOYED_URL}/api/order/placeorder`, { 
         userId: localStorage.getItem("userid"),
         products:products,
         totalPrice:totalprice,
@@ -68,7 +74,7 @@ const Checkout = () => {
       });
       }else{
           toast({
-            title: "Enter All Fields First" ,
+            title: "Enter Correct Details" ,
         
             status: "error",
             duration: 3000,

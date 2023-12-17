@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import WithSubnavigation from '../components/Navbar'
 import { Box, Button, Grid, GridItem, Image, Spinner, Text } from '@chakra-ui/react'
 import axios from 'axios'
-import Buffer from 'buffer'
+
 import {BsStar,BsStarFill,BsStarHalf} from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
@@ -41,7 +41,7 @@ const Product = () => {
     
     setLoading(true)
 
-    axios.get(`${config.LOCAL_URL}/api/product/allproducts`).then((res)=>{
+    axios.get(`${config.DEPLOYED_URL}/api/product/allproducts`).then((res)=>{
      
       setProducts(res.data)
      

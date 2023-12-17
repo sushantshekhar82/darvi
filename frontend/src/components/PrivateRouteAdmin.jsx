@@ -9,7 +9,7 @@ const PrivateRouteAdmin = ({children}) => {
    const navigate=useNavigate()
     const toast = useToast()
    useEffect(()=>{
-    fetch(`${config.LOCAL_URL}/api/${userid}`).
+    fetch(`${config.DEPLOYED_URL}/api/${userid}`).
     then((res)=>res.json())
     .then(res=>{
       console.log(res)
@@ -17,16 +17,20 @@ const PrivateRouteAdmin = ({children}) => {
     })   
      
    },[])
+ if(!userid || userid==null ||userid== undefined || role=="customer"){
 
-         if((role=="customer") ){
-        toast({
-            title: 'Restricted you are not admin',
-            
-            status: 'warning',
-            duration: 5000,
-            isClosable: true,
-          })
-        return <Navigate to="/login"/>
+ 
+    toast({
+        title: 'Restricted you are not admin',
+        
+        status: 'warning',
+        duration: 5000,
+        isClosable: true,
+      })
+      return <Navigate to="/login"/>
+    
+       
+       
     }else{
       return children
     }

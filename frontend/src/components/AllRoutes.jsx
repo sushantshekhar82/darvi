@@ -20,6 +20,7 @@ import UsersAdmin from '../pages/UsersAdmin'
 import PrivateRouteAdmin from './PrivateRouteAdmin'
 import AboutUs from '../pages/AboutUs'
 import ContactUs from '../pages/ContactUs'
+import AllContactAdmin from '../pages/AllContactAdmin'
 const AllRoutes = () => {
   return (
     <Routes>
@@ -40,7 +41,9 @@ const AllRoutes = () => {
         <Route path='/admin' element={<PrivateRouteAdmin><Admin/></PrivateRouteAdmin>}/>
         <Route path="/admin/addnew" element={<PrivateRouteAdmin><AddNewAdmin/></PrivateRouteAdmin>}/>
         <Route path="/admin/orders" element={<PrivateRouteAdmin><OrdersAdmin/></PrivateRouteAdmin>}/>
-        <Route path="/admin/users" element={<PrivateRouteAdmin><UsersAdmin/></PrivateRouteAdmin>}/>
+        <Route path="/admin/createAdmin" element={<PrivateRouteAdmin><UsersAdmin/></PrivateRouteAdmin>}/>
+        <Route path="/admin/contactsForm" element={<PrivateRouteAdmin><AllContactAdmin/></PrivateRouteAdmin>}/>
+    
     </Routes>
   )
 }

@@ -14,11 +14,10 @@ import {
   Drawer,
   DrawerContent,
   useDisclosure,
-  BoxProps,
-  FlexProps,
+ 
   Menu,
   MenuButton,
-  MenuDivider,
+
   MenuItem,
   MenuList,
   Image,
@@ -29,9 +28,9 @@ import {
 import {
   FiHome,
   FiTrendingUp,
-  FiCompass,
+  
   FiStar,
-  FiSettings,
+ 
   FiMenu,
   FiBell,
   FiChevronDown,
@@ -45,18 +44,23 @@ import {
     ModalBody,
     ModalCloseButton,
   } from '@chakra-ui/react'
-import { IconType } from 'react-icons'
+
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Button, Grid, GridItem, Spinner } from '@chakra-ui/react'
 import config from '../config'
 import { Link } from 'react-router-dom'
+import { FaArrowsDownToPeople } from 'react-icons/fa6'
+import { GrContact } from 'react-icons/gr'
 
 
 const LinkItems= [
   { name: 'Edit Products',href:'/admin', icon: FiHome },
   { name: 'Add New ',href:'/admin/addnew', icon: FiTrendingUp },
-  { name: 'Orders',href:'/admin/orders', icon: FiStar }
+  { name: 'Orders',href:'/admin/orders', icon: FiStar },
+  { name: 'Create Admin',href:'/admin/orders', icon: FaArrowsDownToPeople },
+  { name: 'All Contact Form',href:'/admin/orders', icon: GrContact },
+  
 ]
 
 const SidebarContent = ({ onClose, ...rest }) => {
@@ -208,7 +212,7 @@ const Admin = () => {
     
     setLoading(true)
 
-    axios.get(`${config.LOCAL_URL}/api/product/allproducts`).then((res)=>{
+    axios.get(`${config.DEPLOYED_URL}/api/product/allproducts`).then((res)=>{
      
       setProducts(res.data)
      
@@ -217,7 +221,7 @@ const Admin = () => {
     })
   },[token,count])
   useEffect(()=>{
-    fetch(`${config.LOCAL_URL}/api/product/allproducts/${activeid}`, {
+    fetch(`${config.DEPLOYED_URL}/api/product/allproducts/${activeid}`, {
       headers: {
         Authorization: `${localStorage.getItem("token")}`,
       },
@@ -245,7 +249,7 @@ const Admin = () => {
       warning
     }
 
-    fetch(`${config.LOCAL_URL}/api/product/edit/${activeid}`,  {
+    fetch(`${config.DEPLOYED_URL}/api/product/edit/${activeid}`,  {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -271,7 +275,7 @@ const Admin = () => {
 
   }
   const handleDelete=(id)=>{
-    fetch(`${config.LOCAL_URL}/api/product/delete/${id}`,{
+    fetch(`${config.DEPLOYED_URL}/api/product/delete/${id}`,{
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

@@ -13,7 +13,7 @@ const ContactUs = () => {
 
     const handleContact=()=>{
         if(name!="" && email!="" && message!=""){
-            axios.post(`${config.LOCAL_URL}/api/contact/create`,{ 
+            axios.post(`${config.DEPLOYED_URL}/api/contact/create`,{ 
             name,
             email,
             message
