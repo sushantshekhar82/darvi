@@ -26,6 +26,24 @@ export const userReducer = (state = initialState, { type, payload }) => {
         errormsg: payload,
       };
     }
+    case types.ADMIN_LOADING: {
+      return {
+        loading: true,
+      };
+    }
+    case types.ADMIN_SUCCESS: {
+      return {
+        loading: false,
+        message: payload,
+      };
+    }
+    case types.ADMIN_ERROR: {
+      return {
+        loading: false,
+        error: true,
+        errormsg: payload,
+      };
+    }
     default:
       return state;
   }

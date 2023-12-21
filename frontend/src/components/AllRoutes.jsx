@@ -21,6 +21,7 @@ import PrivateRouteAdmin from './PrivateRouteAdmin'
 import AboutUs from '../pages/AboutUs'
 import ContactUs from '../pages/ContactUs'
 import AllContactAdmin from '../pages/AllContactAdmin'
+import ForgetPassword from '../pages/ForgetPassword'
 const AllRoutes = () => {
   return (
     <Routes>
@@ -28,6 +29,7 @@ const AllRoutes = () => {
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/aboutus' element={<AboutUs/>}/>
+        <Route path='/forget_password' element={<ForgetPassword/>}/>
         <Route path='/contactus' element={<ContactUs/>}/>
         <Route path='/register/verify_email' element={<VerifyEmail/>}/>
         <Route path='/login/reset_password_mail' element={<ForgetPasswordMail/>}/>

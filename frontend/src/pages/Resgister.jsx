@@ -31,7 +31,16 @@ export default function Register() {
   const {loading,message}=useSelector((store)=>store.user)
   function validatePhoneNumber(phoneNumber) {
     // Remove non-digit characters
+   
     const digits = phoneNumber.replace(/\D/g, '');
+    if(digits.length !== 10){
+      toast({
+        title: "Check mobile number" ,
+         status: "warning",
+        duration: 2000,
+        isClosable: true,
+     });
+    }
     // Check if resulting string has exactly 10 digits
     return digits.length === 10;
 }

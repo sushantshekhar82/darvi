@@ -7,7 +7,7 @@ import {BiMessageDetail} from 'react-icons/bi'
 import WithSubnavigation from '../components/Navbar';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { AppContext } from '../components/AppContextProvider';
-import { MdLocalShipping } from "react-icons/md";
+import { MdCheckCircle, MdLocalShipping } from "react-icons/md";
 import Footer from '../components/Footer';
 import config from '../config';
 import {
@@ -16,6 +16,13 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
+} from '@chakra-ui/react'
+import {
+  List,
+  ListItem,
+  ListIcon,
+  OrderedList,
+  UnorderedList,
 } from '@chakra-ui/react'
 function Star({ rating }) {
   return (
@@ -363,13 +370,33 @@ Also, the healthy liver helps in better food absorption</Text>
       </AccordionButton>
     </h2>
     <AccordionPanel pb={4}>
-      <Text as={'h3'} > *BOOSTS APPETITE </Text>
-   
-      <Text as={'h3'} >*RELIEVES GASTRIC REFLUX </Text>
-      <Text as={'h3'} >*RELIVES ACIDITY </Text>
-      <Text as={'h3'} >*CURES CONSTIPATION</Text>
-      <Text as={'h3'} >*INDIGESTION</Text>
-      <Text as={'h3'} >*HELPS TO IMPROVE IMMUNE SYSTEM</Text>
+    <List spacing={3}>
+  <ListItem>
+    <ListIcon as={MdCheckCircle} color='green.500' />
+    Boost Appetitie
+  </ListItem>
+  <ListItem>
+  <ListIcon as={MdCheckCircle} color='green.500' />
+   Relives Gastric Reflux
+  </ListItem>
+  <ListItem>
+  <ListIcon as={MdCheckCircle} color='green.500' />
+ Relives Acidity
+  </ListItem>
+  <ListItem>
+  <ListIcon as={MdCheckCircle} color='green.500' />
+   Cures Constipation
+  </ListItem>
+  <ListItem>
+  <ListIcon as={MdCheckCircle} color='green.500' />
+  Indigestion
+  </ListItem>
+  <ListItem>
+  <ListIcon as={MdCheckCircle} color='green.500' />
+Helps to improve immune system 
+  </ListItem>
+</List>
+    
     </AccordionPanel>
   </AccordionItem>
 
@@ -383,10 +410,25 @@ Also, the healthy liver helps in better food absorption</Text>
       </AccordionButton>
     </h2>
     <AccordionPanel pb={4}>
-    <Text as={'h3'} > *Helpful in relieving acidity.</Text>
-    <Text as={'h3'} >*Provides relief from gas & abdominal discomfort.</Text>
-    <Text as={'h3'} >*Beneficial in bloating & heartburn.</Text>
-    <Text as={'h3'} >*Effective in nausea & vomiting.</Text>
+    <List spacing={3}>
+  <ListItem>
+    <ListIcon as={MdCheckCircle} color='green.500' />
+    Helpful in relieving acidity.
+  </ListItem>
+  <ListItem>
+    <ListIcon as={MdCheckCircle} color='green.500' />
+    Provides relief from gas & abdominal discomfort.
+  </ListItem>
+  <ListItem>
+    <ListIcon as={MdCheckCircle} color='green.500' />
+    Beneficial in bloating & heartburn.
+  </ListItem>
+  <ListItem>
+    <ListIcon as={MdCheckCircle} color='green.500' />
+    Effective in nausea & vomiting.
+  </ListItem>
+  </List>
+   
     </AccordionPanel>
   </AccordionItem>
 </Accordion>

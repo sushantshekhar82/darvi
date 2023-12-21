@@ -37,7 +37,7 @@ import {
   FiChevronDown,
 } from 'react-icons/fi'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import config from '../config'
 import { FaArrowsDownToPeople } from "react-icons/fa6"
@@ -116,6 +116,16 @@ const NavItem = ({ icon, children, ...rest }) => {
 }
 
 const MobileNav = ({ onOpen, ...rest }) => {
+  const navigate=useNavigate()
+  const handleLogout = () => {
+     
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    localStorage.removeItem("userid")
+    localStorage.removeItem("role")
+    window.location.reload()
+    navigate("/")
+  };
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -172,7 +182,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
             <MenuList
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem onClick={handleLogout}>Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

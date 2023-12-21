@@ -38,27 +38,38 @@ export default function ForgetPasswordMail() {
 
 
   const handleSend=()=>{
-    axios.post(`${config.DEPLOYED_URL}/api/forget_password/forgetmail`,{
-      email:email
-    }).then((res)=>{
-      if(res.data.message=="mail send successfully"){
-        toast({
-          title: "Email send Successfully" ,
-           status: "success",
-          duration: 3000,
-          isClosable: true,
-       });
-      }else{
-        toast({
-          title: "Error,Invalid Email" ,
-           status: "error",
-          duration: 3000,
-          isClosable: true,
-       });
-      }
-     
-     
-     })
+    if(email!=""){
+      axios.post(`${config.DEPLOYED_URL}/api/forget_password/forgetmail`,{
+        email
+      }).then((res)=>{
+        console.log(res)
+        if(res.data.message=="Check you email"){
+          toast({
+            title: "Email send Successfully" ,
+             status: "success",
+            duration: 3000,
+            isClosable: true,
+         });
+        }else{
+          toast({
+            title: "Error,Invalid Email" ,
+             status: "error",
+            duration: 3000,
+            isClosable: true,
+         });
+        }
+       
+       
+       })
+    }else{
+      toast({
+        title: "Enter Email" ,
+         status: "error",
+        duration: 3000,
+        isClosable: true,
+     });
+    }
+   
     
   }
 
