@@ -12,9 +12,15 @@ const OrderPage = () => {
  const [loading,setLoading]=useState(false)
  const toast=useToast()
  const [count,setCount]=useState(0)
+
   useEffect(()=>{
     setLoading(true)
-    axios.get(`${config.DEPLOYED_URL}/api/order/myorders/${id}`).then((res)=>{
+    axios.get(`${config.DEPLOYED_URL}/api/order/myorders/${id}`, {
+      headers: {
+          Authorization: localStorage.getItem('token')
+      }
+  }).then((res)=>{
+   
          setOrders(res.data.orders)
     }).finally((res)=>{
       setLoading(false)
@@ -47,6 +53,7 @@ const OrderPage = () => {
         setCount(count+1)
        })
    }
+   console.log( localStorage.getItem('token'),orders)
   return (
     <Box>
       <WithSubnavigation/>

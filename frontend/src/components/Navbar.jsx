@@ -60,7 +60,7 @@ import config from '../config';
     const [users,setUsers]=useState(user)
     
     useEffect(()=>{
-      axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`).then((res)=>{
+      axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/count/${id}`).then((res)=>{
            Length(res.data.cartCount)
       })
      },[length])
@@ -110,7 +110,7 @@ import config from '../config';
           </Flex>
           <Flex flex={{ base: 1 }} marginRight={{base:'30px',lg:'1px'}}  justifyContent={'space-around'} alignItems={'center'}  gap={'10px'}  >
             <Flex>
-             <Image src="https://daarvipharmaceuticals.vercel.app/darvi.png" alt="Darvi"/>
+            <Link to={'/'}> <Image src="https://daarvipharmaceuticals.vercel.app/darvi.png" alt="Darvi"/></Link>
              </Flex>
             <Flex display={{ base: 'none', md: 'flex',lg:'center' }} mr={150}>
               <DesktopNav />
@@ -132,7 +132,7 @@ import config from '../config';
                 </MenuButton>
                 <MenuList>
                   <MenuItem><Text fontWeight={'bold'}>Welcome! {localStorage.getItem('user')}</Text></MenuItem>
-                  <MenuItem><Link to="/order page"><Text fontWeight={'bold'}>My Order</Text></Link></MenuItem>
+                  <Link to="/order page"> <MenuItem><Text fontWeight={'bold'}>My Order</Text></MenuItem></Link>
                  
                   <MenuDivider />
                   <MenuItem>

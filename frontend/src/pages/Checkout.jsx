@@ -22,7 +22,11 @@ const Checkout = () => {
     const navigate=useNavigate()
     useEffect(() => {
         setLoading(true)
-        axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`).then((res) => {
+        axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`, {
+          headers: {
+              Authorization: localStorage.getItem('token')
+          }
+      }).then((res) => {
           setProducts(res.data.cart);
         
           setTotalprice(res.data.totalCartPrice);
@@ -31,14 +35,27 @@ const Checkout = () => {
         });
       }, []);
       useEffect(()=>{
-        axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`).then((res)=>{
+        axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`, {
+          headers: {
+              Authorization: localStorage.getItem('token')
+          }
+      }).then((res)=>{
         
           Length(res.data.cartCount)
         })
        },[count,length])
        function validatePhoneNumber(phoneNumber) {
         // Remove non-digit characters
+       
         const digits = phoneNumber.replace(/\D/g, '');
+        if(digits.length !== 10){
+          toast({
+            title: "Enter valid mobile number" ,
+            status: "warning",
+            duration: 2000,
+            isClosable: true,
+         });
+        }
         // Check if resulting string has exactly 10 digits
         return digits.length === 10;
     }

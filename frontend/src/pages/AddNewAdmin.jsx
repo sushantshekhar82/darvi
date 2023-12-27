@@ -279,7 +279,7 @@ const AddNewAdmin = () => {
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
-      <Box margin={'auto'} padding={'10px'} borderRadius={'20px'} backgroundColor={'white'} width={'500px'} height={'auto'}>
+      <Box margin={'auto'} padding={'10px'} borderRadius={'20px'} backgroundColor={'white'} width={{base:'98%',lg:'500px'}} height={'auto'}>
            <Text as={'h1'} fontSize={'5xl'} fontWeight={'bold'} textAlign={'center'}>Add Products</Text>
            <Text fontSize={'md'} fontWeight={'bold'}>Product Name</Text>
            <Input marginTop={'10px'} type='text' value={productname} onChange={(e)=>setProductName(e.target.value)}  placeholder='Product Name' size='lg' />

@@ -35,10 +35,9 @@ const CartPage = () => {
     setLoading(true)
     axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`, {
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem("token"),
+          Authorization: localStorage.getItem('token')
       }
-    }).then((res) => {
+  }).then((res) => {
       setProducts(res.data.cart);
       Length(res.data.cartCount);
       setTotalprice(res.data.totalCartPrice);
@@ -49,12 +48,11 @@ const CartPage = () => {
   console.log(products, totalprice);
 const handleRemove=(prodid)=>{
 console.log(prodid)
-  axios.delete(`${config.DEPLOYED_URL}/api/cart/cartitems/delete/${prodid}`, {
+  axios.delete(`${config.DEPLOYED_URL}/api/cart/cartitems/delete/${prodid}`,  {
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': localStorage.getItem("token"),
+        Authorization: localStorage.getItem('token')
     }
-  })
+})
   .then((res) => {
     console.log(res.data);
     setCount(count + 1);

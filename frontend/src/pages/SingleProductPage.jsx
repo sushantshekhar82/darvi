@@ -86,8 +86,11 @@ const SingleProductPage = () => {
   };
   
     useEffect(()=>{
-      axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`, {
-      }).then((res)=>{
+      axios.get(`${config.DEPLOYED_URL}/api/cart/cartitems/${id}`,  {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    }).then((res)=>{
       
         Length(res.data.cartCount)
       })

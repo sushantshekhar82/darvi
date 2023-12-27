@@ -221,7 +221,7 @@ const Home = () => {
         : products.map((e)=>(
       <Box width={{base:'90%',lg:'350px'}} height={'auto'} margin={'auto'} key={e._id}>
          <Link to={`/products_page/${e._id}`}>
-          <Image  width={"60%"} src={e.image1url} transform="rotate(-2deg)"/>
+          <Image  height={{base:'320px',lg:'350px'}} margin={'auto'} src={e.image1url} transform="rotate(-2deg)"/>
           <Text as={'h1'} fontSize={{base:'2xl',lg:'3xl'}}  fontWeight={'bold'} paddingLeft={'10px'}>{e.productname}</Text>
           <Text marginTop={'-10px'} as={'h4'} fontSize={'xl'} fontWeight={'bold'} paddingLeft={'10px'}>{e.category}</Text>
           <Text as={'h2'} fontSize={'3xl'} fontWeight={'bold'} paddingLeft={'10px'}>₹{e.price}</Text>
@@ -239,7 +239,7 @@ const Home = () => {
     
      </Box>
       {/* <TestimonialCarousel /> */}
-      <Text textAlign={'center'} fontSize={{base:'30px',lg:'40px'}}  fontWeight={'bold'}>Our Patients Says</Text>
+      <Text textAlign={'center'} fontSize={{base:'30px',lg:'40px'}}  marginTop={"25px"}  fontWeight={'bold'}>Our Patients Says</Text>
      
       <CardCarousel/>
       <Box display={{ base: "none", lg: "block" }} marginTop={"25px"} marginBottom={'20px'}>

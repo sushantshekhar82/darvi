@@ -292,8 +292,8 @@ function validateEmail(email) {
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
-           <Box margin={'auto'} padding={'10px'} borderRadius={'20px'} backgroundColor={'white'} width={'500px'} height={'auto'}>
-           <Stack spacing={2} w={'130%'} maxW={'md'} backgroundColor={'white'}padding={'10px'} borderRadius={'10px'}>
+           <Box margin={'auto'} padding={'10px'} borderRadius={'20px'} backgroundColor={'white'} width={{base:'98%',lg:'500px'}} height={'auto'}>
+           <Stack spacing={2} w={{base:'98%',lg:'130%'}} maxW={'md'} backgroundColor={'white'}padding={'10px'} borderRadius={'10px'}>
           <Heading fontSize={'2xl'} textAlign={'center'}>Create Admin</Heading>
           <FormControl id="name">
             <FormLabel>Name</FormLabel>

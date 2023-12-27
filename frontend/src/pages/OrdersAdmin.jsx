@@ -209,7 +209,11 @@ const OrdersAdmin = () => {
   const [activeid,setActiveId]=useState("")
    useEffect(()=>{
      setLoading(true)
-     axios.get(`${config.DEPLOYED_URL}/api/order/admin/allorders`).then((res)=>{
+     axios.get(`${config.DEPLOYED_URL}/api/order/admin/allorders`, {
+      headers: {
+          Authorization: localStorage.getItem('token')
+      }
+  }).then((res)=>{
           setOrders(res.data.orders)
      }).finally((res)=>{
        setLoading(false)
@@ -217,35 +221,43 @@ const OrdersAdmin = () => {
     },[count])
     const handleUpdate=(id)=>{
 
+    if(status!="" && date!=""){
       const orderUpdateModel={
-       status,
-       deliveryDate:date
-      }
-  
-      fetch(`${config.DEPLOYED_URL}/api/order/admin/update/${id}`,  {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(orderUpdateModel)
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          console.log(orderUpdateModel,res)
-         if(res.message==="updated successfully"){
-          toast({
-            title: "Updated Succssfully" ,
-        
-            status: "success",
-            duration: 3000,
-            isClosable: true,
-         });
-         setCount(count+1)
-         }
-        }) 
-       
-          
+        status,
+        deliveryDate:date
+       }
+   
+       fetch(`${config.DEPLOYED_URL}/api/order/admin/update/${id}`,  {
+         method: 'PUT',
+         headers: {
+           'Content-Type': 'application/json',
+           'Authorization': `${localStorage.getItem("token")}`,
+         },
+         body: JSON.stringify(orderUpdateModel)
+       })
+         .then((res) => res.json())
+         .then((res) => {
+           console.log(orderUpdateModel,res)
+          if(res.message==="updated successfully"){
+           toast({
+             title: "Updated Succssfully" ,
+         
+             status: "success",
+             duration: 3000,
+             isClosable: true,
+          });
+          setCount(count+1)
+          }
+         }) 
+    }else{
+      toast({
+        title: "Enter all fields" ,
+    
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+     });
+    }
   
     }
   return (

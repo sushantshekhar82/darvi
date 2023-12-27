@@ -154,14 +154,12 @@ const MobileNav = ({ onOpen, ...rest }) => {
         icon={<FiMenu />}
       />
 
-      <Text
-        display={{ base: 'flex', md: 'none' }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold">
-        Logo
-      </Text>
-
+<Image
+                  width={"auto  "}
+                  margin={"auto"}
+                  src="https://daarvipharmaceuticals.vercel.app/darvi.png"
+                  alt="Darvi Logo"
+                />
       <HStack spacing={{ base: '0', md: '6' }}>
         <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} />
         <Flex alignItems={'center'}>
